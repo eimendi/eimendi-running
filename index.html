@@ -984,6 +984,59 @@
       border-color: #a855f7;
     }
 
+    /* Grid de chips de multiselección de deportes */
+    .sports-chips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .sport-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-size: 0.775rem;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .sport-chip:hover {
+      border-color: #ec4899;
+      background: rgba(236, 72, 153, 0.05);
+    }
+
+    .sport-chip.selected {
+      background: rgba(236, 72, 153, 0.18);
+      border-color: #ec4899;
+      color: #f472b6;
+      font-weight: 700;
+      box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.4);
+    }
+
+    .sport-chip .sport-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    @media (max-width: 480px) {
+      .sports-chips-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+      .sport-chip {
+        padding: 7px 8px;
+        font-size: 0.725rem;
+      }
+    }
+
     .callout-box {
       background: rgba(16, 185, 129, 0.08);
       border: 1px solid var(--accent-border);
@@ -1615,34 +1668,62 @@
             <button type="button" class="segmented-btn selected" id="btn-cross-no"
               onclick="setOtherSportsActive(false)">No, solo correr</button>
             <button type="button" class="segmented-btn" id="btn-cross-yes" onclick="setOtherSportsActive(true)">Sí,
-              practico otro deporte</button>
+              practico otros deportes</button>
           </div>
 
           <div id="cfg-other-sports-details" style="display: none;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 700;">¿Cuál?</label>
-                <select id="cfg-other-sport-type" class="form-control" style="padding: 8px;"
-                  onchange="handleSportTypeChange()">
-                  <option value="Crossfit">Crossfit</option>
-                  <option value="Gimnasio">Gimnasio / Fitness</option>
-                  <option value="Pádel">Pádel</option>
-                  <option value="Fútbol">Fútbol</option>
-                  <option value="Ciclismo">Ciclismo</option>
-                  <option value="Natación">Natación</option>
-                  <option value="Otro">Otro deporte</option>
-                </select>
+            <label style="font-size: 0.775rem; color: var(--accent); font-weight: 700; margin-bottom: 6px; display: block;">
+              ¿Qué deportes practicas? (Puedes marcar varios):
+            </label>
+
+            <!-- Grid de chips para selección múltiple -->
+            <div class="sports-chips-grid" id="cfg-sports-chips-grid">
+              <div class="sport-chip" data-sport="Crossfit" onclick="toggleSportChip(this)">
+                <span class="sport-icon">🏋️</span> Crossfit
               </div>
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 700;">¿Nombre si es otro?</label>
-                <input type="text" id="cfg-other-sport-custom" class="form-control" style="padding: 8px;"
-                  placeholder="Ej. Escalada, Tenis...">
+              <div class="sport-chip" data-sport="Fútbol" onclick="toggleSportChip(this)">
+                <span class="sport-icon">⚽</span> Fútbol / Futsal
+              </div>
+              <div class="sport-chip" data-sport="Pádel" onclick="toggleSportChip(this)">
+                <span class="sport-icon">🎾</span> Pádel / Tenis
+              </div>
+              <div class="sport-chip" data-sport="Ciclismo" onclick="toggleSportChip(this)">
+                <span class="sport-icon">🚴</span> Ciclismo / Bici
+              </div>
+              <div class="sport-chip" data-sport="Natación" onclick="toggleSportChip(this)">
+                <span class="sport-icon">🏊</span> Natación
+              </div>
+              <div class="sport-chip" data-sport="Gimnasio" onclick="toggleSportChip(this)">
+                <span class="sport-icon">💪</span> Gimnasio / Fitness
+              </div>
+              <div class="sport-chip" data-sport="Yoga / Pilates" onclick="toggleSportChip(this)">
+                <span class="sport-icon">🧘</span> Yoga / Pilates
+              </div>
+              <div class="sport-chip" data-sport="Baloncesto" onclick="toggleSportChip(this)">
+                <span class="sport-icon">🏀</span> Baloncesto
+              </div>
+              <div class="sport-chip" data-sport="Senderismo" onclick="toggleSportChip(this)">
+                <span class="sport-icon">🥾</span> Senderismo / Trekking
+              </div>
+              <div class="sport-chip" data-sport="Boxeo" onclick="toggleSportChip(this)">
+                <span class="sport-icon">🥊</span> Boxeo / Contacto
               </div>
             </div>
 
-            <label style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 4px; font-weight: 700;">¿Cuántos
-              días a la semana? (Selecciona los días):</label>
-            <div class="btn-group-days" id="cfg-cross-days-group">
+            <!-- Campo para deportes adicionales o personalizados -->
+            <div style="margin-bottom: 12px;">
+              <label style="font-size: 0.725rem; color: var(--text-dim); font-weight: 600; margin-bottom: 4px; display: block;">
+                ¿Practicas algún otro deporte diferente? Escríbelo aquí (puedes separar varios con comas):
+              </label>
+              <input type="text" id="cfg-other-sport-custom" class="form-control"
+                placeholder="Ej. Escalada, Remo, Surf..." style="padding: 7px 10px; font-size: 0.8rem;"
+                oninput="handleSportCustomInput()">
+            </div>
+
+            <label style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 4px; font-weight: 700; display: block;">
+              ¿Cuántos días a la semana? (Selecciona los días en que entrenas estos deportes):
+            </label>
+            <div class="btn-group-days" id="cfg-cross-days-group" style="margin-bottom: 8px;">
               <div class="btn-day-toggle" data-day="0" onclick="toggleCrossDayBtn(this)">Lun</div>
               <div class="btn-day-toggle" data-day="1" onclick="toggleCrossDayBtn(this)">Mar</div>
               <div class="btn-day-toggle" data-day="2" onclick="toggleCrossDayBtn(this)">Mié</div>
@@ -1650,6 +1731,14 @@
               <div class="btn-day-toggle" data-day="4" onclick="toggleCrossDayBtn(this)">Vie</div>
               <div class="btn-day-toggle" data-day="5" onclick="toggleCrossDayBtn(this)">Sáb</div>
               <div class="btn-day-toggle" data-day="6" onclick="toggleCrossDayBtn(this)">Dom</div>
+            </div>
+
+            <!-- Distribución automática / configurable si se han seleccionado varios deportes -->
+            <div id="cfg-cross-distribution-box" style="display: none; margin-top: 10px; padding: 10px 12px; background: rgba(236, 72, 153, 0.08); border-radius: var(--radius-sm); border: 1px dashed rgba(236, 72, 153, 0.35);">
+              <label style="font-size: 0.725rem; color: #f472b6; font-weight: 700; display: block; margin-bottom: 6px;">
+                📅 Asignación por día (automática o personalízala si quieres):
+              </label>
+              <div id="cfg-cross-day-assignments" style="display: flex; flex-direction: column; gap: 6px;"></div>
             </div>
           </div>
         </div>
@@ -2086,9 +2175,11 @@
         maxDistanceRun: null,
         runningDays: [],
         hasOtherSports: false,
-        otherSportType: "Crossfit",
+        otherSports: [],
+        otherSportType: "",
         otherSportCustom: "",
         crossDays: [],
+        crossDayMap: {},
         hasGym: false,
         gymDays: [],
         includeHills: true,
@@ -2097,6 +2188,79 @@
       },
       weeks: []
     };
+
+    const DAY_NAMES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function getOtherSportsList(p) {
+      const prof = p || STATE.profile || {};
+      let sports = [];
+      if (Array.isArray(prof.otherSports) && prof.otherSports.length > 0) {
+        sports = [...prof.otherSports];
+      } else if (prof.otherSportType) {
+        sports = prof.otherSportType.split(',').map(s => s.trim()).filter(Boolean);
+      }
+      if (prof.otherSportCustom && prof.otherSportCustom.trim()) {
+        const customs = prof.otherSportCustom.split(',').map(s => s.trim()).filter(Boolean);
+        customs.forEach(c => {
+          if (!sports.some(s => s.toLowerCase() === c.toLowerCase())) {
+            sports.push(c);
+          }
+        });
+      }
+      return sports;
+    }
+
+    function formatSportsListSpanish(list) {
+      if (!list || list.length === 0) return 'tus otros deportes';
+      if (list.length === 1) return list[0];
+      if (list.length === 2) return `${list[0]} y ${list[1]}`;
+      return `${list.slice(0, -1).join(', ')} y ${list[list.length - 1]}`;
+    }
+
+    function getCrossSportObservation(sport) {
+      const s = (sport || '').toLowerCase();
+      if (s.includes('crossfit')) {
+        return "Trabajo metabólico y fuerza de alta intensidad. Cuida no fatigar gemelos ni sóleos en exceso si al día siguiente te toca rodar.";
+      }
+      if (s.includes('fútbol') || s.includes('futbol') || s.includes('futsal')) {
+        return "Partido o entreno con aceleraciones y cambios de ritmo. Prioriza buena hidratación y estiramiento dinámico de isquios y cuádriceps.";
+      }
+      if (s.includes('pádel') || s.includes('padel') || s.includes('tenis')) {
+        return "Sesión de agilidad y desplazamientos cortos. Movilidad de tobillos previa y estiramiento suave de gemelos al finalizar.";
+      }
+      if (s.includes('ciclismo') || s.includes('bici') || s.includes('spinning')) {
+        return "Excelente estímulo cardiovascular sin impacto articular. Cadencia alegre y constante para favorecer la recuperación activa de piernas.";
+      }
+      if (s.includes('natación') || s.includes('natacion') || s.includes('piscina')) {
+        return "Trabajo aeróbico completo y descompresión de columna sin impacto. Ideal para regenerar musculatura y oxigenar articulaciones.";
+      }
+      if (s.includes('gimnasio') || s.includes('pesas') || s.includes('fitness') || s.includes('musculación') || s.includes('musculacion')) {
+        return "Fuerza funcional, tren superior y core. Modera la carga de tren inferior si tienes series o tirada larga en las próximas 48h.";
+      }
+      if (s.includes('yoga') || s.includes('pilates')) {
+        return "Sesión de movilidad articular activa, flexibilidad y estabilidad lumbo-pélvica. Gran aporte preventivo contra lesiones de carrera.";
+      }
+      if (s.includes('baloncesto') || s.includes('basket')) {
+        return "Impacto y saltos reactivos. Calentamiento riguroso de tobillos y buena regeneración post-partido.";
+      }
+      if (s.includes('senderismo') || s.includes('montaña') || s.includes('trekking')) {
+        return "Volumen aeróbico y fortalecimiento de tobillos con ritmo sostenido. Hidratación y calzado con buena amortiguación.";
+      }
+      if (s.includes('boxeo') || s.includes('artes marciales') || s.includes('combate')) {
+        return "Alto gasto metabólico y coordinación. Cuidado con la tensión en gemelos por el salto continuo de comba.";
+      }
+      return `Entrenamiento de ${sport}. Mantén una hidratación adecuada y enfócate en técnica limpia y recuperación de piernas.`;
+    }
 
     // --- RUTINAS DE FUERZA (VÍDEOS OFICIALES) ---
     const STRENGTH_VIDEOS = [
@@ -2233,8 +2397,12 @@
       const todayDayIdx = (today.getDay() === 0 ? 6 : today.getDay() - 1); // 0=Lun, 1=Mar... 6=Dom
 
       const hasOther = p.hasOtherSports && p.crossDays && p.crossDays.length > 0;
-      const sportName = (p.otherSportType === 'Otro' && p.otherSportCustom) ? p.otherSportCustom : p.otherSportType;
-      const isCrossfit = hasOther && (sportName.toLowerCase().includes('crossfit') || p.otherSportType === 'Crossfit');
+      const sportsList = getOtherSportsList(p);
+      const isCrossfit = hasOther && (
+        sportsList.some(s => s.toLowerCase().includes('crossfit')) ||
+        (p.otherSportType && p.otherSportType.toLowerCase().includes('crossfit'))
+      );
+      const sportsSummary = formatSportsListSpanish(sportsList);
       const maxKm = parseFloat(p.maxDistanceRun) || (p.goal === '10k' ? 5 : p.goal === '5k' ? 3 : p.goal === 'marathon' ? 20 : p.goal === 'beginner' ? 2 : 10);
 
       const weeks = [];
@@ -2316,12 +2484,11 @@
             session.km = r.km || null;
             runIdx++;
           } else if (isCrossDay) {
+            const daySport = (p.crossDayMap && p.crossDayMap[d]) || (sportsList.length > 0 ? sportsList[d % sportsList.length] : "Entrenamiento Cruzado");
             session.type = "cross";
-            session.cat = `${sportName}`;
-            session.workout = `SESIÓN DE ${sportName.toUpperCase()}`;
-            session.obs = isCrossfit
-              ? "Trabajo metabólico/fuerza. Cuida no fatigar gemelos excesivamente si al día siguiente corres."
-              : `Entrenamiento de ${sportName}. Mantén buena hidratación y técnica.`;
+            session.cat = daySport;
+            session.workout = `SESIÓN DE ${daySport.toUpperCase()}`;
+            session.obs = getCrossSportObservation(daySport);
           } else if (isGymDay) {
             session.type = "strength";
             session.cat = "Fuerza";
@@ -2352,6 +2519,8 @@
           wTitle = `Semana ${weekNum} - ${getWeekPhaseName(w, totalWeeks)}`;
           wFocus = isCrossfit
             ? "Calidad aeróbica y ritmo específico compatibilizado con tus días de Crossfit."
+            : hasOther
+            ? `Calidad aeróbica y ritmo específico compatibilizado con ${sportsSummary}.`
             : `Desarrollo aeróbico progresivo desde base de ${maxKm}km.`;
         }
 
@@ -2746,6 +2915,12 @@
           if (parsed.maxDistanceRun === undefined) {
             parsed.maxDistanceRun = (parsed.goal === '10k' ? 5 : parsed.goal === '5k' ? 3 : parsed.goal === 'marathon' ? 20 : parsed.goal === 'beginner' ? 2 : 10);
           }
+          if (!parsed.otherSports && parsed.otherSportType) {
+            parsed.otherSports = parsed.otherSportType.split(',').map(s => s.trim()).filter(Boolean);
+          }
+          if (!parsed.crossDayMap) {
+            parsed.crossDayMap = {};
+          }
           Object.assign(STATE.profile, parsed);
         }
         const w = localStorage.getItem('eimendi_weeks');
@@ -2803,7 +2978,8 @@
       const banner = document.getElementById('cross-sport-banner');
       if (banner) {
         if (STATE.profile.hasOtherSports && STATE.profile.crossDays?.length > 0) {
-          const sName = (STATE.profile.otherSportType === 'Otro' && STATE.profile.otherSportCustom) ? STATE.profile.otherSportCustom : STATE.profile.otherSportType;
+          const sportsList = getOtherSportsList(STATE.profile);
+          const sName = formatSportsListSpanish(sportsList);
           banner.style.display = 'block';
           document.getElementById('cross-sport-banner-title').textContent = `🏋️ Plan adaptado a combinación con ${sName}:`;
           document.getElementById('cross-sport-banner-desc').textContent = `Las tiradas largas y rodajes de running se han optimizado en volumen de impacto para proteger articulaciones y evitar sobrecargas tras tus sesiones de ${sName}.`;
@@ -3124,11 +3300,12 @@
 
         // Otros deportes por defecto No
         setOtherSportsActive(false);
-        document.getElementById('cfg-other-sport-type').value = 'Crossfit';
+        document.querySelectorAll('#cfg-sports-chips-grid .sport-chip').forEach(c => c.classList.remove('selected'));
         document.getElementById('cfg-other-sport-custom').value = '';
         document.querySelectorAll('#cfg-cross-days-group .btn-day-toggle').forEach(btn => {
           btn.classList.remove('selected-cf');
         });
+        updateCrossDayAssignmentsUI();
 
         // Fuerza por defecto No
         setGymActive(false);
@@ -3167,14 +3344,25 @@
 
         // Otros deportes
         setOtherSportsActive(!!p.hasOtherSports);
-        document.getElementById('cfg-other-sport-type').value = p.otherSportType || 'Crossfit';
+        const savedSports = getOtherSportsList(p);
+        document.querySelectorAll('#cfg-sports-chips-grid .sport-chip').forEach(c => {
+          const sp = c.getAttribute('data-sport');
+          c.classList.toggle('selected', savedSports.includes(sp));
+        });
         document.getElementById('cfg-other-sport-custom').value = p.otherSportCustom || '';
-        handleSportTypeChange();
 
         document.querySelectorAll('#cfg-cross-days-group .btn-day-toggle').forEach(btn => {
           const d = parseInt(btn.getAttribute('data-day'), 10);
           btn.classList.toggle('selected-cf', (p.crossDays || []).includes(d));
         });
+        updateCrossDayAssignmentsUI();
+
+        if (p.crossDayMap) {
+          Object.keys(p.crossDayMap).forEach(dayKey => {
+            const sel = document.querySelector(`#cfg-cross-day-assignments select[data-day="${dayKey}"]`);
+            if (sel) sel.value = p.crossDayMap[dayKey];
+          });
+        }
 
         // Fuerza
         setGymActive(!!p.hasGym);
@@ -3375,14 +3563,48 @@
 
       // 6. Validar Otros Deportes
       const crossDays = [];
+      let otherSports = [];
+      let otherSportCustom = '';
+      let crossDayMap = {};
+
       if (STATE.profile.hasOtherSports) {
+        document.querySelectorAll('#cfg-sports-chips-grid .sport-chip.selected').forEach(c => {
+          const sp = c.getAttribute('data-sport');
+          if (sp) otherSports.push(sp);
+        });
+
+        const customInput = document.getElementById('cfg-other-sport-custom');
+        otherSportCustom = customInput ? customInput.value.trim() : '';
+        if (otherSportCustom) {
+          const customs = otherSportCustom.split(',').map(s => s.trim()).filter(Boolean);
+          customs.forEach(cs => {
+            if (!otherSports.some(s => s.toLowerCase() === cs.toLowerCase())) {
+              otherSports.push(cs);
+            }
+          });
+        }
+
+        if (otherSports.length === 0) {
+          showErrorStep1("Has marcado que practicas otros deportes; por favor, selecciona al menos un deporte en la lista o escribe cuál practicas (o pulsa 'No, solo correr').");
+          return;
+        }
+
         document.querySelectorAll('#cfg-cross-days-group .btn-day-toggle.selected-cf').forEach(btn => {
           crossDays.push(parseInt(btn.getAttribute('data-day'), 10));
         });
         if (crossDays.length === 0) {
-          showErrorStep1("Has marcado que practicas otro deporte; por favor, selecciona qué días lo realizas o pulsa 'No, solo correr'.");
+          showErrorStep1("Has marcado que practicas otros deportes; por favor, selecciona qué días los realizas o pulsa 'No, solo correr'.");
           return;
         }
+
+        crossDays.forEach((d, idx) => {
+          const sel = document.querySelector(`#cfg-cross-day-assignments select[data-day="${d}"]`);
+          if (sel && sel.value) {
+            crossDayMap[d] = sel.value;
+          } else {
+            crossDayMap[d] = otherSports[idx % otherSports.length];
+          }
+        });
       }
 
       // 7. Validar Fuerza
@@ -3415,9 +3637,11 @@
       STATE.profile.runningDays = runDays;
       STATE.profile.includeHills = includeHills;
       STATE.profile.maxDistanceRun = maxDistanceRun;
-      STATE.profile.otherSportType = document.getElementById('cfg-other-sport-type').value;
-      STATE.profile.otherSportCustom = document.getElementById('cfg-other-sport-custom').value.trim();
+      STATE.profile.otherSports = otherSports;
+      STATE.profile.otherSportType = (otherSports.length > 0) ? otherSports.join(', ') : '';
+      STATE.profile.otherSportCustom = otherSportCustom;
       STATE.profile.crossDays = crossDays;
+      STATE.profile.crossDayMap = crossDayMap;
       STATE.profile.gymDays = gymDays;
 
       localStorage.setItem('eimendi_profile', JSON.stringify(STATE.profile));
@@ -3476,11 +3700,74 @@
       document.getElementById('btn-cross-yes').classList.toggle('selected', active);
       document.getElementById('btn-cross-no').classList.toggle('selected', !active);
       document.getElementById('cfg-other-sports-details').style.display = active ? 'block' : 'none';
+      hideErrorStep1();
+      if (active) {
+        updateCrossDayAssignmentsUI();
+      }
     }
 
-    function handleSportTypeChange() {
-      const t = document.getElementById('cfg-other-sport-type').value;
-      document.getElementById('cfg-other-sport-custom').style.display = (t === 'Otro') ? 'block' : 'none';
+    function toggleSportChip(chip) {
+      chip.classList.toggle('selected');
+      hideErrorStep1();
+      updateCrossDayAssignmentsUI();
+    }
+
+    function handleSportCustomInput() {
+      hideErrorStep1();
+      updateCrossDayAssignmentsUI();
+    }
+
+    function updateCrossDayAssignmentsUI() {
+      const container = document.getElementById('cfg-cross-distribution-box');
+      const listEl = document.getElementById('cfg-cross-day-assignments');
+      if (!container || !listEl) return;
+
+      const sports = [];
+      document.querySelectorAll('#cfg-sports-chips-grid .sport-chip.selected').forEach(c => {
+        const s = c.getAttribute('data-sport');
+        if (s) sports.push(s);
+      });
+      const customVal = (document.getElementById('cfg-other-sport-custom')?.value || '').trim();
+      if (customVal) {
+        customVal.split(',').map(s => s.trim()).filter(Boolean).forEach(cs => {
+          if (!sports.some(s => s.toLowerCase() === cs.toLowerCase())) sports.push(cs);
+        });
+      }
+
+      const selectedDays = [];
+      document.querySelectorAll('#cfg-cross-days-group .btn-day-toggle.selected-cf').forEach(btn => {
+        selectedDays.push(parseInt(btn.getAttribute('data-day'), 10));
+      });
+
+      if (sports.length > 1 && selectedDays.length > 0) {
+        container.style.display = 'block';
+
+        const prevVals = {};
+        listEl.querySelectorAll('select[data-day]').forEach(sel => {
+          prevVals[sel.getAttribute('data-day')] = sel.value;
+        });
+
+        listEl.innerHTML = selectedDays.map((d, idx) => {
+          const dayName = DAY_NAMES[d] || `Día ${d + 1}`;
+          const defaultSport = prevVals[d] || sports[idx % sports.length];
+
+          const optionsHtml = sports.map(sp => {
+            return `<option value="${escapeHtml(sp)}" ${sp === defaultSport ? 'selected' : ''}>${escapeHtml(sp)}</option>`;
+          }).join('') + (sports.length > 1 ? `<option value="${escapeHtml(sports.join(' / '))}">Ambos / Combinado</option>` : '');
+
+          return `
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 0.75rem;">
+              <span style="font-weight: 700; color: var(--text-main); min-width: 65px;">${dayName}:</span>
+              <select data-day="${d}" class="form-control" style="padding: 4px 8px; font-size: 0.75rem; flex: 1; border-color: rgba(236, 72, 153, 0.4);">
+                ${optionsHtml}
+              </select>
+            </div>
+          `;
+        }).join('');
+      } else {
+        container.style.display = 'none';
+        listEl.innerHTML = '';
+      }
     }
 
     function setGymActive(active) {
@@ -3507,6 +3794,7 @@
     function toggleCrossDayBtn(btn) {
       btn.classList.toggle('selected-cf');
       hideErrorStep1();
+      updateCrossDayAssignmentsUI();
     }
     function toggleGymDayBtn(btn) {
       btn.classList.toggle('selected-gym');
