@@ -1,0 +1,3421 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Eimendi Running | Eider Mendiburu</title>
+  <meta name="description" content="Plataforma de entrenamiento y planificación de running personalizada por Eider Mendiburu. Carga instantánea y offline.">
+  <meta name="theme-color" content="#060913">
+  
+  <!-- Soporte PWA y Móvil Nativo (iOS y Android) -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Eimendi">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2310b981'/><path d='M66 48 Q82 40 96 46' stroke='%23042f2e' stroke-width='4' stroke-linecap='round'/><path d='M38 54 Q22 50 6 56' stroke='%23042f2e' stroke-width='4' stroke-linecap='round'/><g fill='%23042f2e' stroke='%23042f2e' stroke-linecap='round' stroke-linejoin='round'><circle cx='56' cy='18' r='7' stroke-width='0'/><path d='M50 16 C44 11 35 13 29 18 C36 18 43 19 49 20 Z' stroke-width='0'/><path d='M54 25 C59 28 62 36 58 45 L48 45 C44 37 47 29 54 25 Z' stroke-width='0'/><path d='M47 44 L59 44 L62 53 L44 53 Z' stroke-width='0'/><path d='M56 30 L68 38 L78 34' stroke-width='4.5' fill='none'/><path d='M48 31 L38 39 L30 49' stroke-width='4.2' fill='none'/><path d='M57 52 L67 65 L72 79' stroke-width='5' fill='none'/><path d='M69 77 L76 80 L85 81 C86 83 84 84 80 84 L68 84 C66 84 66 80 69 77 Z' fill='%23042f2e' stroke-width='0'/><path d='M46 52 L35 63 L22 68' stroke-width='4.5' fill='none'/><path d='M24 65 L18 68 L12 70 C11 69 12 67 15 65 L23 62 Z' fill='%23042f2e' stroke-width='0'/></g></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%2310b981'/><path d='M66 48 Q82 40 96 46' stroke='%23042f2e' stroke-width='4' stroke-linecap='round'/><path d='M38 54 Q22 50 6 56' stroke='%23042f2e' stroke-width='4' stroke-linecap='round'/><g fill='%23042f2e' stroke='%23042f2e' stroke-linecap='round' stroke-linejoin='round'><circle cx='56' cy='18' r='7' stroke-width='0'/><path d='M50 16 C44 11 35 13 29 18 C36 18 43 19 49 20 Z' stroke-width='0'/><path d='M54 25 C59 28 62 36 58 45 L48 45 C44 37 47 29 54 25 Z' stroke-width='0'/><path d='M47 44 L59 44 L62 53 L44 53 Z' stroke-width='0'/><path d='M56 30 L68 38 L78 34' stroke-width='4.5' fill='none'/><path d='M48 31 L38 39 L30 49' stroke-width='4.2' fill='none'/><path d='M57 52 L67 65 L72 79' stroke-width='5' fill='none'/><path d='M69 77 L76 80 L85 81 C86 83 84 84 80 84 L68 84 C66 84 66 80 69 77 Z' fill='%23042f2e' stroke-width='0'/><path d='M46 52 L35 63 L22 68' stroke-width='4.5' fill='none'/><path d='M24 65 L18 68 L12 70 C11 69 12 67 15 65 L23 62 Z' fill='%23042f2e' stroke-width='0'/></g></svg>">
+
+  <style>
+    /* RESET Y VARIABLES DE TEMA */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-base: #060913;
+      --bg-surface: #0f172a;
+      --bg-surface-elevated: #1e293b;
+      --bg-card: #0f172a;
+      --border-subtle: #1e293b;
+      --border-strong: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent: #10b981;
+      --accent-hover: #34d399;
+      --accent-dim: rgba(16, 185, 129, 0.12);
+      --accent-border: rgba(16, 185, 129, 0.3);
+      --z1: #06b6d4;
+      --z2: #10b981;
+      --z3: #f59e0b;
+      --z4: #f97316;
+      --z5: #ef4444;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    html.light {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f1f5f9;
+      --bg-card: #ffffff;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      --accent-dim: rgba(16, 185, 129, 0.1);
+      --accent-border: rgba(16, 185, 129, 0.4);
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.6); }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-logo-container {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #059669, #10b981);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+      flex-shrink: 0;
+      color: #042f2e;
+    }
+
+    .brand-logo-container svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-text h1 span.badge {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      letter-spacing: 0.05em;
+    }
+
+    .brand-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* BOTONES */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #042f2e;
+      border-color: #059669;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      border-color: var(--border-subtle);
+    }
+    .btn-secondary:hover {
+      background: var(--border-strong);
+      border-color: var(--border-strong);
+    }
+
+    .btn-pill-zone {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+    .btn-pill-zone:hover {
+      border-color: var(--accent);
+    }
+    .btn-pill-zone .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background: var(--accent);
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .btn-icon {
+      padding: 8px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .btn-icon:hover {
+      color: var(--text-main);
+      border-color: var(--border-strong);
+    }
+
+    /* SUBNAV */
+    .subnav {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 8px 0;
+    }
+
+    .subnav-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      background: var(--bg-base);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      gap: 2px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pulse-glow {
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      50% { box-shadow: 0 0 12px 3px rgba(16, 185, 129, 0.6); }
+    }
+
+    @media (max-width: 768px) {
+      .header-inner {
+        height: auto;
+        padding: 8px 0;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .brand-text p {
+        display: none;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+      .header-actions::-webkit-scrollbar {
+        display: none;
+      }
+      .btn {
+        padding: 6px 10px;
+        font-size: 0.775rem;
+        flex-shrink: 0;
+      }
+      .btn-pill-zone {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+        flex-shrink: 0;
+      }
+      .nav-tabs {
+        width: 100%;
+      }
+      .tab-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        flex-shrink: 0;
+      }
+    }
+
+    .tab-btn {
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .tab-btn:hover { color: var(--text-main); }
+    .tab-btn.active {
+      background: var(--accent);
+      color: #042f2e;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+    }
+
+    .athlete-quick-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .athlete-quick-meta strong { color: var(--text-main); }
+
+    main {
+      flex: 1;
+      padding: 24px 0;
+    }
+
+    /* SELECTOR DE SEMANA */
+    .week-navigator {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--bg-surface);
+      padding: 8px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 20px;
+    }
+
+    .week-chips {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 2px;
+      scrollbar-width: none;
+    }
+    .week-chips::-webkit-scrollbar { display: none; }
+
+    .week-chip {
+      flex-shrink: 0;
+      padding: 6px 12px;
+      border-radius: var(--radius-md);
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .week-chip:hover {
+      color: var(--text-main);
+      border-color: var(--border-strong);
+    }
+    .week-chip.active {
+      background: var(--accent);
+      color: #042f2e;
+      border-color: var(--accent);
+    }
+    .week-chip.race {
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #f87171;
+    }
+    .week-chip.race.active {
+      background: #ef4444;
+      color: #ffffff;
+      border-color: #ef4444;
+    }
+
+    /* CABECERA DE SEMANA */
+    .week-header-card {
+      background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-elevated));
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .week-header-title h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .week-header-title p {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .filters-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .filter-btn {
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .filter-btn:hover { color: var(--text-main); }
+    .filter-btn.active {
+      background: var(--text-main);
+      color: var(--bg-base);
+      border-color: var(--text-main);
+    }
+
+    .days-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .day-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .day-card:hover { border-color: var(--border-strong); }
+    .day-card.completed {
+      background: rgba(15, 23, 42, 0.4);
+      border-color: var(--accent-border);
+      opacity: 0.85;
+    }
+    .day-card.race-day {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), var(--bg-surface));
+      border-color: rgba(239, 68, 68, 0.5);
+    }
+    .day-card.today {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .day-card-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .day-card-inner {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+    }
+
+    .day-main-info {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .day-checkbox {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--border-strong);
+      background: var(--bg-surface-elevated);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: transparent;
+      transition: all 0.15s;
+    }
+    .day-checkbox:hover { border-color: var(--accent); }
+    .day-checkbox.checked {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #042f2e;
+    }
+
+    .day-rest-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-elevated);
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .day-content { flex: 1; }
+
+    .day-meta-tags {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .day-name {
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+
+    .day-date {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-right: 4px;
+    }
+
+    .tag-category {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .tag-category.fartlek { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3); }
+    .tag-category.series, .tag-category.hills { background: rgba(239, 68, 68, 0.12); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
+    .tag-category.long_run { background: rgba(16, 185, 129, 0.12); color: #34d399; border-color: rgba(16, 185, 129, 0.3); }
+    .tag-category.strength { background: rgba(168, 85, 247, 0.12); color: #c084fc; border-color: rgba(168, 85, 247, 0.3); }
+    .tag-category.crossfit, .tag-category.cross { background: rgba(236, 72, 153, 0.15); color: #f472b6; border-color: rgba(236, 72, 153, 0.4); font-weight: 800; }
+    .tag-category.test { background: rgba(6, 182, 212, 0.12); color: #22d3ee; border-color: rgba(6, 182, 212, 0.3); }
+    .tag-category.race { background: #ef4444; color: #ffffff; border-color: #ef4444; }
+
+    .tag-today {
+      background: var(--accent);
+      color: #042f2e;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .tag-km {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .workout-text {
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .zone-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin: 0 3px;
+      border: 1px solid transparent;
+      vertical-align: baseline;
+    }
+    .zone-badge.z1 { background: rgba(6, 182, 212, 0.15); color: #22d3ee; border-color: rgba(6, 182, 212, 0.4); }
+    .zone-badge.z2 { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.4); }
+    .zone-badge.z3 { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.4); }
+    .zone-badge.z4 { background: rgba(249, 115, 22, 0.15); color: #fb923c; border-color: rgba(249, 115, 22, 0.4); }
+    .zone-badge.z5 { background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.4); }
+
+    .guideline-notes {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .guideline-notes strong {
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .user-feedback-box {
+      margin-top: 8px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .user-feedback-box .stars {
+      color: #fbbf24;
+      letter-spacing: 2px;
+    }
+
+    .day-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-start;
+    }
+
+    /* MODAL Y ONBOARDING EN 2 PASOS */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      animation: fadeIn 0.15s ease-out;
+    }
+
+    .modal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 640px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .modal-header h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    /* INDICADOR DE PASOS EN ONBOARDING */
+    .steps-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .step-pill {
+      flex: 1;
+      text-align: center;
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      background: var(--bg-base);
+      color: var(--text-dim);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.2s;
+    }
+    .step-pill.active {
+      background: var(--accent);
+      color: #042f2e;
+      border-color: var(--accent);
+    }
+    .step-pill.completed {
+      background: var(--bg-surface-elevated);
+      color: var(--accent);
+      border-color: var(--accent-border);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      background: var(--bg-base);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      color: var(--text-main);
+      font-size: 0.875rem;
+      font-family: inherit;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* RADIO/PILLS SELECCIÓN */
+    .segmented-control {
+      display: flex;
+      gap: 6px;
+      background: var(--bg-base);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+    .segmented-btn {
+      flex: 1;
+      padding: 7px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .segmented-btn.selected {
+      background: var(--accent);
+      color: #042f2e;
+    }
+
+    .btn-group-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .btn-day-toggle {
+      padding: 8px 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-base);
+      color: var(--text-muted);
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-day-toggle.selected {
+      background: var(--accent);
+      color: #042f2e;
+      border-color: var(--accent);
+    }
+    .btn-day-toggle.selected-cf {
+      background: #ec4899;
+      color: #ffffff;
+      border-color: #ec4899;
+    }
+    .btn-day-toggle.selected-gym {
+      background: #a855f7;
+      color: #ffffff;
+      border-color: #a855f7;
+    }
+
+    .callout-box {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      font-size: 0.775rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .callout-box strong { color: var(--accent); }
+
+    /* MENÚ NUTRICIONAL ESTILO NATIVO */
+    .menu-day-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .menu-meal-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .menu-meal-item:last-child { border-bottom: none; }
+    .meal-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+    .meal-desc {
+      font-size: 0.85rem;
+      color: var(--text-main);
+    }
+
+    .zones-table-modal {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 6px;
+      margin: 12px 0;
+    }
+    .zones-table-modal td {
+      padding: 8px 12px;
+      background: var(--bg-base);
+      font-size: 0.8rem;
+    }
+    .zones-table-modal tr td:first-child { border-top-left-radius: var(--radius-sm); border-bottom-left-radius: var(--radius-sm); }
+    .zones-table-modal tr td:last-child { border-top-right-radius: var(--radius-sm); border-bottom-right-radius: var(--radius-sm); text-align: right; }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .resource-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .resource-card:hover { border-color: var(--accent-border); }
+    .resource-card h4 { font-size: 0.95rem; font-weight: 800; margin-bottom: 4px; }
+    .resource-card p { font-size: 0.75rem; color: var(--text-muted); }
+
+    footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      padding: 20px 0;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-top: auto;
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media print {
+      header, .subnav, .week-navigator, .filters-bar, .day-actions, footer, .btn {
+        display: none !important;
+      }
+      body { background: white !important; color: black !important; }
+      .day-card { border: 1px solid #ccc !important; page-break-inside: avoid; margin-bottom: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container header-inner">
+      
+      <!-- LOGO: CORREDORA MINIMALISTA CON COLETA ENTRANDO A META -->
+      <div class="brand" onclick="openOnboarding(false)">
+        <div class="brand-logo-container" title="Eimendi Running">
+          <!-- SVG: Corredora atlética con cuerpo, shorts, zapatillas y coleta corta cruzando meta -->
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cinta de meta minimalista -->
+            <path d="M 66 48 Q 82 40 96 46" stroke="#042f2e" stroke-width="4" stroke-linecap="round"/>
+            <path d="M 38 54 Q 22 50 6 56" stroke="#042f2e" stroke-width="4" stroke-linecap="round"/>
+
+            <g fill="#042f2e" stroke="#042f2e" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Cabeza circular limpia -->
+              <circle cx="56" cy="18" r="7" stroke-width="0"/>
+
+              <!-- Coleta corta y chic -->
+              <path d="M 50 16 C 44 11, 35 13, 29 18 C 36 18, 43 19, 49 20 Z" stroke-width="0"/>
+
+              <!-- Torso femenino con top de atletismo (cuerpo definido) -->
+              <path d="M 54 25 C 59 28, 62 36, 58 45 L 48 45 C 44 37, 47 29, 54 25 Z" stroke-width="0"/>
+
+              <!-- Shorts de running definidos -->
+              <path d="M 47 44 L 59 44 L 62 53 L 44 53 Z" stroke-width="0"/>
+
+              <!-- Brazos en acción atlética cruzando la meta -->
+              <path d="M 56 30 L 68 38 L 78 34" stroke-width="4.5" fill="none"/>
+              <path d="M 48 31 L 38 39 L 30 49" stroke-width="4.2" fill="none"/>
+
+              <!-- Pierna delantera pisando -->
+              <path d="M 57 52 L 67 65 L 72 79" stroke-width="5" fill="none"/>
+
+              <!-- ZAPATILLA DE RUNNING DELANTERA (Con amortiguación y suela) -->
+              <path d="M 69 77 L 76 80 L 85 81 C 86 83, 84 84, 80 84 L 68 84 C 66 84, 66 80, 69 77 Z" fill="#042f2e" stroke-width="0"/>
+
+              <!-- Pierna trasera en zancada -->
+              <path d="M 46 52 L 35 63 L 22 68" stroke-width="4.5" fill="none"/>
+
+              <!-- ZAPATILLA DE RUNNING TRASERA (Suela y silueta de correr en el aire) -->
+              <path d="M 24 65 L 18 68 L 12 70 C 11 69, 12 67, 15 65 L 23 62 Z" fill="#042f2e" stroke-width="0"/>
+            </g>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>EIMENDI <span class="badge">Running</span></h1>
+          <p>Eider Mendiburu · Planes de Entrenamiento</p>
+        </div>
+      </div>
+
+      <!-- ACCIONES SUPERIORES -->
+      <div class="header-actions">
+        <!-- Instalar App Móvil -->
+        <button class="btn btn-secondary" id="btn-header-install" onclick="openInstallModal()" title="Instalar en tu móvil como app nativa">
+          <span>📱 App Móvil</span>
+        </button>
+
+        <!-- Zonas VAM directas -->
+        <button class="btn btn-pill-zone" onclick="openZonesModal()" title="Ver y modificar test VAM">
+          <span class="dot"></span>
+          <span style="font-weight: 400; opacity: 0.8;">VAM: </span>
+          <strong id="header-vam-pace" style="color: var(--accent);">04:10</strong>/km
+        </button>
+
+        <!-- Ajustar Plan -->
+        <button class="btn btn-secondary" onclick="openOnboarding(false)" title="Reconfigurar objetivo, fecha, deportes y test">
+          <span>⚙️ Mi Objetivo</span>
+        </button>
+
+        <button class="btn btn-primary" onclick="exportWeekPDF()">
+          <span>📄 PDF</span>
+        </button>
+
+        <button class="btn btn-secondary" onclick="exportPlanICS()" title="Descargar archivo de calendario .ics">
+          <span>📅 .ICS</span>
+        </button>
+
+        <button class="btn-icon" onclick="toggleDarkMode()" title="Cambiar tema">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- SUBNAV -->
+  <div class="subnav">
+    <div class="container subnav-inner">
+      <div class="nav-tabs">
+        <button class="tab-btn active" id="tab-list" onclick="switchView('list')">
+          <span>📋 Mi Plan</span>
+        </button>
+        <button class="tab-btn" id="tab-calendar" onclick="switchView('calendar')">
+          <span>📅 Calendario</span>
+        </button>
+        <button class="tab-btn" id="tab-nutrition" onclick="switchView('nutrition')">
+          <span>🥗 Menú Nutricional</span>
+        </button>
+        <button class="tab-btn" id="tab-resources" onclick="switchView('resources')">
+          <span>🏋️ Fuerza & Vídeos</span>
+        </button>
+        <button class="tab-btn" id="tab-stats" onclick="switchView('stats')">
+          <span>🏆 Progreso</span>
+        </button>
+      </div>
+
+      <div class="athlete-quick-meta">
+        <div>Atleta: <strong id="meta-athlete-name">Eider</strong></div>
+        <div>Objetivo: <strong id="meta-athlete-goal" style="color: var(--accent);">Media Maratón (21K)</strong></div>
+        <div id="meta-max-dist-box" style="display: none; background: rgba(16, 185, 129, 0.08); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border-subtle); font-size: 0.75rem;">Base máx: <strong id="meta-max-dist-text" style="color: var(--accent);">10 km</strong></div>
+        <div id="meta-countdown-box" style="display: none; background: rgba(16, 185, 129, 0.12); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--accent-border); color: var(--accent); font-weight: 700;">
+          <span id="meta-countdown-text"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="container">
+    
+    <!-- VISTA 1: LISTA SEMANAL -->
+    <div id="view-list">
+      
+      <!-- Aviso de adaptación si entrena Crossfit u otros deportes -->
+      <div id="cross-sport-banner" class="callout-box" style="display: none;">
+        <strong id="cross-sport-banner-title">🏋️ Plan adaptado:</strong>
+        <span id="cross-sport-banner-desc"></span>
+      </div>
+
+      <!-- Selector de semanas -->
+      <div class="week-navigator">
+        <button class="btn btn-secondary" onclick="changeWeek(-1)" style="padding: 6px 10px;">◀</button>
+        <div class="week-chips" id="week-chips-container"></div>
+        <button class="btn btn-secondary" onclick="changeWeek(1)" style="padding: 6px 10px;">▶</button>
+      </div>
+
+      <!-- Cabecera de la Semana Actual -->
+      <div class="week-header-card">
+        <div class="week-header-title">
+          <h2 id="current-week-title">Semana 1</h2>
+          <p id="current-week-focus">Enfoque de la semana</p>
+        </div>
+        <div>
+          <button class="btn btn-secondary" onclick="exportWeekPDF()">
+            <span>Descargar PDF Semana</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Barra de Filtros -->
+      <div class="filters-bar">
+        <span>Filtrar:</span>
+        <button class="filter-btn active" onclick="setFilter('all', this)">Todos los días</button>
+        <button class="filter-btn" onclick="setFilter('running', this)">🏃 Carrera</button>
+        <button class="filter-btn" onclick="setFilter('cross', this)">🏋️ Otros Deportes / Fuerza</button>
+        <button class="filter-btn" onclick="setFilter('pending', this)">⏳ Pendientes</button>
+        <button class="filter-btn" onclick="setFilter('completed', this)">✅ Completados</button>
+      </div>
+
+      <!-- Lista de Días -->
+      <div class="days-list" id="days-container"></div>
+    </div>
+
+    <!-- VISTA 2: CALENDARIO -->
+    <div id="view-calendar" style="display: none;">
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 800;">Calendario del Plan de Entrenamiento</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Sincronizado con las fechas reales hasta el día de la carrera.</p>
+          </div>
+          <button class="btn btn-secondary" onclick="exportPlanICS()">Descargar .ICS</button>
+        </div>
+        <div id="calendar-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;"></div>
+      </div>
+    </div>
+
+    <!-- VISTA 3: MENÚ NUTRICIONAL EIMENDI (100% NATIVO EN LA APP) -->
+    <div id="view-nutrition" style="display: none;">
+      <div style="margin-bottom: 20px;">
+        <h2 style="font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em;">🥗 Nutrición Deportiva Eimendi</h2>
+        <p style="font-size: 0.85rem; color: var(--accent); font-weight: 500;">
+          Estrategia de alimentación real para corredores: energía limpia, digestión ligera y óptima recuperación.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+        
+        <!-- Tarjeta Desayuno -->
+        <div class="menu-day-card">
+          <div class="meal-title">🥣 Desayunos de Rendimiento</div>
+          <div class="menu-meal-item">
+            <strong style="font-size: 0.8rem; color: var(--text-muted);">Opción A (Días de Series o Tirada Larga):</strong>
+            <p class="meal-desc">Porridge de avena cocida con leche o bebida vegetal, plátano en rodajas, canela y un puñado de nueces. Tomar 2h a 2h30 antes de entrenar.</p>
+          </div>
+          <div class="menu-meal-item">
+            <strong style="font-size: 0.8rem; color: var(--text-muted);">Opción B (Días de Rodaje Suave o Descanso):</strong>
+            <p class="meal-desc">Tostadas de pan integral de masa madre con aceite de oliva virgen extra, aguacate y huevo a la plancha o revuelto + kiwi o arándanos frescos.</p>
+          </div>
+        </div>
+
+        <!-- Tarjeta Comida Principal -->
+        <div class="menu-day-card">
+          <div class="meal-title">🍽️ Comidas Principales (Almuerzo)</div>
+          <div class="menu-meal-item">
+            <strong style="font-size: 0.8rem; color: var(--text-muted);">Opción 1 (Recarga de Hidratos Complejos):</strong>
+            <p class="meal-desc">Arroz basmati o integral con pechuga de pollo de corral a la plancha, calabacín y zanahoria salteados en AOVE.</p>
+          </div>
+          <div class="menu-meal-item">
+            <strong style="font-size: 0.8rem; color: var(--text-muted);">Opción 2 (Omega 3 & Recuperación):</strong>
+            <p class="meal-desc">Pasta integral o quinoa con lomo de salmón fresco al horno, brócoli al vapor y ensalada variada de tomate y hojas verdes.</p>
+          </div>
+          <div class="menu-meal-item">
+            <strong style="font-size: 0.8rem; color: var(--text-muted);">Opción 3 (Legumbre Ligera):</strong>
+            <p class="meal-desc">Guiso suave de lentejas con patata y verduras sin embutidos pesados, acompañado de ensalada fresca.</p>
+          </div>
+        </div>
+
+        <!-- Tarjeta Merienda Pre-Entreno -->
+        <div class="menu-day-card">
+          <div class="meal-title">⚡ Merienda Pre-Entrenamiento (1h30 antes)</div>
+          <div class="menu-meal-item">
+            <p class="meal-desc">Plátano maduro con 1 cucharadita de crema de cacahuete 100%, o 2 tortitas de arroz con un toque de miel. Fácil asimilación sin pesadez estomacal.</p>
+          </div>
+          <div class="menu-meal-item">
+            <strong style="font-size: 0.8rem; color: var(--text-muted);">Post-Entreno Inmediato:</strong>
+            <p class="meal-desc">Pieza de fruta fresca (plátano o naranja) + yogur natural o kéfir con semillas de chía.</p>
+          </div>
+        </div>
+
+        <!-- Tarjeta Cenas Reparadoras -->
+        <div class="menu-day-card">
+          <div class="meal-title">🌙 Cenas Reparadoras (Descanso Profundo)</div>
+          <div class="menu-meal-item">
+            <p class="meal-desc">Crema tibia de calabaza o verduras de temporada + lomo de merluza, lubina o bacalao al papillote + patata asada o boniato pequeño.</p>
+          </div>
+          <div class="menu-meal-item">
+            <strong style="font-size: 0.8rem; color: var(--text-muted);">Cena Previa a la Carrera (Noche del Sábado):</strong>
+            <p class="meal-desc">Plato de arroz blanco o pasta al dente con aceite de oliva virgen extra y pechuga de pavo. Evitar salsas grasas, picantes o fibra cruda excesiva para asegurar digestión perfecta.</p>
+          </div>
+        </div>
+
+        <!-- Pauta de Hidratación -->
+        <div class="menu-day-card" style="grid-column: 1 / -1; border-color: var(--accent-border);">
+          <div class="meal-title">💧 Protocolo de Hidratación y Día de Carrera (Behobia / Competición)</div>
+          <div style="font-size: 0.85rem; line-height: 1.6; color: var(--text-muted); margin-top: 6px;">
+            <p>• <strong>Días previos (-48h):</strong> Bebe entre 2 y 2.5 litros de agua al día de manera constante a pequeños sorbos.</p>
+            <p>• <strong>Mañana de la carrera:</strong> Desayuna exactamente lo que hayas probado en tus entrenamientos 3 horas antes de la salida.</p>
+            <p>• <strong>Durante la carrera:</strong> Bebe un sorbo en cada avituallamiento (cada 5km) aunque no sientas sed extrema para evitar bajadas de rendimiento.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VISTA 4: FUERZA & VÍDEOS -->
+    <div id="view-resources" style="display: none;">
+      <div style="background: var(--bg-surface); border: 1px solid var(--accent-border); border-radius: var(--radius-lg); padding: 18px; margin-bottom: 24px;">
+        <h4 style="font-size: 1rem; font-weight: 800; color: var(--accent); margin-bottom: 6px;">🏃 Calentamiento & Movilidad Articular Eimendi</h4>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px;">
+          Rutina obligatoria antes de cada sesión de series o tirada larga: movilidad articular de cadera, tobillos y técnica de carrera suave para evitar lesiones.
+        </p>
+        <a href="https://drive.google.com/file/d/1xXkjvccFPRv1hSpjYsxGbAyQYlts3DEy/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          Abrir Vídeo de Calentamiento
+        </a>
+      </div>
+
+      <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px;">Rutinas Oficiales de Fuerza para Running</h3>
+      <div class="resources-grid" id="strength-grid"></div>
+    </div>
+
+    <!-- VISTA 5: ESTADÍSTICAS -->
+    <div id="view-stats" style="display: none;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px;">
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 18px;">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Progreso Global</div>
+          <div style="font-size: 2rem; font-weight: 900; font-family: var(--font-mono); color: var(--accent); margin: 4px 0;" id="stat-progress-pct">0%</div>
+          <div style="font-size: 0.75rem; color: var(--text-dim);" id="stat-progress-count">0 de 0 sesiones</div>
+        </div>
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 18px;">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Km Estimados</div>
+          <div style="font-size: 2rem; font-weight: 900; font-family: var(--font-mono); color: var(--text-main); margin: 4px 0;" id="stat-total-km">~0 km</div>
+          <div style="font-size: 0.75rem; color: var(--text-dim);">Suma de rodajes y tiradas</div>
+        </div>
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 18px;">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Sesiones Carrera</div>
+          <div style="font-size: 2rem; font-weight: 900; font-family: var(--font-mono); color: #38bdf8; margin: 4px 0;" id="stat-running-count">0</div>
+          <div style="font-size: 0.75rem; color: var(--text-dim);">Series, fartleks y tiradas</div>
+        </div>
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 18px;">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Sesiones Fuerza / Otros</div>
+          <div style="font-size: 2rem; font-weight: 900; font-family: var(--font-mono); color: #c084fc; margin: 4px 0;" id="stat-strength-count">0</div>
+          <div style="font-size: 0.75rem; color: var(--text-dim);">Fuerza funcional y deportes</div>
+        </div>
+      </div>
+
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 20px;">
+        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 4px;">Zonas Actuales Calculadas</h3>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 16px;">Fórmula del test de 5 min VAM:</p>
+        <div id="stats-zones-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: ASISTENTE ONBOARDING EN 2 PASOS (PERFIL -> TEST 5' VAM -> GENERAR PLAN) -->
+  <div id="modal-onboarding" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      
+      <!-- Indicador de los 2 pasos -->
+      <div class="steps-indicator">
+        <div class="step-pill active" id="pill-step-1">1. Perfil & Disponibilidad</div>
+        <div class="step-pill" id="pill-step-2">2. Test de 5 Minutos VAM</div>
+      </div>
+
+      <!-- PASO 1: TU PERFIL Y DISPONIBILIDAD -->
+      <div id="onboarding-step-1">
+        <div class="modal-header">
+          <div>
+            <h3 id="onboarding-modal-title">Configura tu Perfil y Disponibilidad</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Adapta tus días de carrera y deportes complementarios</p>
+          </div>
+          <button class="btn-icon" onclick="closeModal('modal-onboarding')">✕</button>
+        </div>
+
+        <div class="form-group">
+          <label>1. Nombre de la corredora / corredor:</label>
+          <input type="text" id="cfg-athlete-name" class="form-control" placeholder="Eider">
+        </div>
+
+        <div class="form-group">
+          <label>2. ¿Cuál es tu objetivo?</label>
+          <select id="cfg-goal-select" class="form-control" onchange="handleGoalSelectChange()">
+            <option value="half_marathon">Media Maratón (21K)</option>
+            <option value="behobia">20K Behobia - San Sebastián</option>
+            <option value="10k">Carrera de 10K</option>
+            <option value="5k">Carrera de 5K</option>
+            <option value="marathon">Maratón (42K)</option>
+            <option value="beginner">Empezar a correr (Iniciación / CACOs)</option>
+            <option value="custom">Distancia Personalizada / Reto</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="cfg-custom-goal-box" style="display: none;">
+          <label>Nombre del Reto Personalizado:</label>
+          <input type="text" id="cfg-custom-goal-name" class="form-control" placeholder="Ej. 20K Behobia - San Sebastián">
+        </div>
+
+        <div class="form-group">
+          <label>3. Fecha de la carrera o evento:</label>
+          <input type="date" id="cfg-race-date" class="form-control" style="font-family: var(--font-mono);" onchange="updateRaceCountdownFeedback()">
+          <div id="onboarding-countdown-feedback" style="font-size: 0.75rem; color: var(--accent); margin-top: 4px; font-weight: 600;"></div>
+        </div>
+
+        <!-- 4. Distancia máxima corrida hasta ahora -->
+        <div class="form-group" style="background: var(--bg-base); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <label style="font-size: 0.825rem; color: var(--text-main); font-weight: 700;">4. ¿Cuál es la distancia máxima que has corrido hasta ahora?</label>
+          <p style="font-size: 0.725rem; color: var(--text-dim); margin-bottom: 8px;">Para calcular una progresión segura sin saltos bruscos y evitar lesiones:</p>
+          
+          <div class="segmented-control" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;">
+            <button type="button" class="segmented-btn" id="chip-dist-3" onclick="selectMaxDistanceChip(3)">3 km</button>
+            <button type="button" class="segmented-btn" id="chip-dist-5" onclick="selectMaxDistanceChip(5)">5 km</button>
+            <button type="button" class="segmented-btn" id="chip-dist-8" onclick="selectMaxDistanceChip(8)">8 km</button>
+            <button type="button" class="segmented-btn" id="chip-dist-10" onclick="selectMaxDistanceChip(10)">10 km</button>
+            <button type="button" class="segmented-btn" id="chip-dist-15" onclick="selectMaxDistanceChip(15)">15 km</button>
+            <button type="button" class="segmented-btn" id="chip-dist-21" onclick="selectMaxDistanceChip(21)">21 km</button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 0.8rem; color: var(--text-dim); font-weight: 600;">O escribe tus km:</span>
+            <input type="number" id="cfg-max-distance" class="form-control" min="1" max="60" step="0.5" style="max-width: 90px; padding: 6px 10px; font-family: var(--font-mono); font-weight: 700; text-align: center;" oninput="handleMaxDistanceInput()">
+            <span style="font-size: 0.85rem; color: var(--accent); font-weight: 700;">km</span>
+          </div>
+          <div id="cfg-max-distance-feedback" style="font-size: 0.725rem; color: var(--accent); margin-top: 6px; font-weight: 600;"></div>
+        </div>
+
+        <div class="form-group">
+          <label>5. ¿Cuántos días a la semana quieres correr?</label>
+          <p style="font-size: 0.725rem; color: var(--text-dim); margin-bottom: 6px;">Selecciona qué días harás tus entrenamientos de carrera:</p>
+          <div class="btn-group-days" id="cfg-running-days-group">
+            <div class="btn-day-toggle selected" data-day="0" onclick="toggleRunDayBtn(this)">Lun</div>
+            <div class="btn-day-toggle" data-day="1" onclick="toggleRunDayBtn(this)">Mar</div>
+            <div class="btn-day-toggle" data-day="2" onclick="toggleRunDayBtn(this)">Mié</div>
+            <div class="btn-day-toggle selected" data-day="3" onclick="toggleRunDayBtn(this)">Jue</div>
+            <div class="btn-day-toggle" data-day="4" onclick="toggleRunDayBtn(this)">Vie</div>
+            <div class="btn-day-toggle selected" data-day="5" onclick="toggleRunDayBtn(this)">Sáb</div>
+            <div class="btn-day-toggle" data-day="6" onclick="toggleRunDayBtn(this)">Dom</div>
+          </div>
+        </div>
+
+        <!-- 6. ¿Practicas algún otro deporte? -->
+        <div class="form-group" style="background: var(--bg-base); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <label style="font-size: 0.825rem; color: var(--text-main); font-weight: 700;">6. ¿Practicas algún otro deporte?</label>
+          <div class="segmented-control" style="margin-bottom: 10px;">
+            <button type="button" class="segmented-btn selected" id="btn-cross-no" onclick="setOtherSportsActive(false)">No, solo correr</button>
+            <button type="button" class="segmented-btn" id="btn-cross-yes" onclick="setOtherSportsActive(true)">Sí, practico otro deporte</button>
+          </div>
+
+          <div id="cfg-other-sports-details" style="display: none;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 700;">¿Cuál?</label>
+                <select id="cfg-other-sport-type" class="form-control" style="padding: 8px;" onchange="handleSportTypeChange()">
+                  <option value="Crossfit">Crossfit</option>
+                  <option value="Gimnasio">Gimnasio / Fitness</option>
+                  <option value="Pádel">Pádel</option>
+                  <option value="Fútbol">Fútbol</option>
+                  <option value="Ciclismo">Ciclismo</option>
+                  <option value="Natación">Natación</option>
+                  <option value="Otro">Otro deporte</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 700;">¿Nombre si es otro?</label>
+                <input type="text" id="cfg-other-sport-custom" class="form-control" style="padding: 8px;" placeholder="Ej. Escalada, Tenis...">
+              </div>
+            </div>
+
+            <label style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 4px; font-weight: 700;">¿Cuántos días a la semana? (Selecciona los días):</label>
+            <div class="btn-group-days" id="cfg-cross-days-group">
+              <div class="btn-day-toggle" data-day="0" onclick="toggleCrossDayBtn(this)">Lun</div>
+              <div class="btn-day-toggle selected-cf" data-day="1" onclick="toggleCrossDayBtn(this)">Mar</div>
+              <div class="btn-day-toggle" data-day="2" onclick="toggleCrossDayBtn(this)">Mié</div>
+              <div class="btn-day-toggle" data-day="3" onclick="toggleCrossDayBtn(this)">Jue</div>
+              <div class="btn-day-toggle selected-cf" data-day="4" onclick="toggleCrossDayBtn(this)">Vie</div>
+              <div class="btn-day-toggle" data-day="5" onclick="toggleCrossDayBtn(this)">Sáb</div>
+              <div class="btn-day-toggle" data-day="6" onclick="toggleCrossDayBtn(this)">Dom</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. ¿Quieres entrenamiento de fuerza? -->
+        <div class="form-group" style="background: var(--bg-base); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <label style="font-size: 0.825rem; color: var(--text-main); font-weight: 700;">7. ¿Quieres entrenamiento de fuerza?</label>
+          <div class="segmented-control" style="margin-bottom: 10px;">
+            <button type="button" class="segmented-btn selected" id="btn-gym-yes" onclick="setGymActive(true)">Sí (Recomendado)</button>
+            <button type="button" class="segmented-btn" id="btn-gym-no" onclick="setGymActive(false)">No</button>
+          </div>
+
+          <div id="cfg-gym-days-details">
+            <label style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 4px; font-weight: 700;">¿Qué día prefieres para tu sesión de fuerza?</label>
+            <div class="btn-group-days" id="cfg-gym-days-group">
+              <div class="btn-day-toggle" data-day="0" onclick="toggleGymDayBtn(this)">Lun</div>
+              <div class="btn-day-toggle selected-gym" data-day="1" onclick="toggleGymDayBtn(this)">Mar</div>
+              <div class="btn-day-toggle" data-day="2" onclick="toggleGymDayBtn(this)">Mié</div>
+              <div class="btn-day-toggle" data-day="3" onclick="toggleGymDayBtn(this)">Jue</div>
+              <div class="btn-day-toggle" data-day="4" onclick="toggleGymDayBtn(this)">Vie</div>
+              <div class="btn-day-toggle" data-day="5" onclick="toggleGymDayBtn(this)">Sáb</div>
+              <div class="btn-day-toggle" data-day="6" onclick="toggleGymDayBtn(this)">Dom</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. ¿Quieres hacer entrenamientos de series en cuesta? -->
+        <div class="form-group" style="background: var(--bg-base); padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <label style="font-size: 0.825rem; color: var(--text-main); font-weight: 700;">8. ¿Quieres hacer entrenamientos de series en cuesta?</label>
+          <div class="segmented-control" style="margin-top: 8px;">
+            <button type="button" class="segmented-btn selected" id="btn-hills-yes" onclick="setHillsActive(true)">Sí</button>
+            <button type="button" class="segmented-btn" id="btn-hills-no" onclick="setHillsActive(false)">No</button>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px;">
+          <button class="btn btn-secondary" onclick="closeModal('modal-onboarding')">Cancelar</button>
+          <button class="btn btn-primary" onclick="saveStep1AndGoToTest()">Guardar y Continuar al Test de Zonas ➔</button>
+        </div>
+      </div>
+
+      <!-- PASO 2: TEST DE 5 MINUTOS VAM Y CALIBRACIÓN DE RITMOS -->
+      <div id="onboarding-step-2" style="display: none;">
+        <div class="modal-header">
+          <div>
+            <h3>Test de 5 Minutos VAM (Calibración de Ritmos Eimendi)</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Calcula con exactitud tus zonas Z1 a Z5 y series de pista</p>
+          </div>
+          <button class="btn-icon" onclick="closeModal('modal-onboarding')">✕</button>
+        </div>
+
+        <!-- Explicación clara y detallada del test -->
+        <div class="callout-box" style="margin-bottom: 16px; background: rgba(16, 185, 129, 0.08); border-left: 4px solid var(--accent); padding: 14px;">
+          <strong style="font-size: 0.9rem; color: var(--accent); display: block; margin-bottom: 6px;">
+            🏃 ¿Qué es el Test de 5 Minutos VAM y qué debes hacer?
+          </strong>
+          <p style="margin-bottom: 10px; font-size: 0.825rem; color: var(--text-main); line-height: 1.5;">
+            El <strong>Test de 5 Minutos</strong> es la prueba de campo clave de la entrenadora <strong>Eider Mendiburu</strong> para medir tu Velocidad Aeróbica Máxima (VAM). Con este dato deducimos matemáticamente tus 5 zonas fisiológicas exactas (Z1 a Z5) y los ritmos de tus series. Así entrenas siempre a la intensidad que tu cuerpo asimila, progresando semana a semana sin sobrecargas.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.8rem;">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <span style="background: rgba(6, 182, 212, 0.2); color: #22d3ee; font-weight: 800; border-radius: 9999px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.75rem;">1</span>
+              <div>
+                <strong>1. Calentamiento (10 a 15 min):</strong> Haz de 1 a 2 km a trote muy suave en Zona 1 (un ritmo cómodo en el que puedas hablar sin dificultad) + movilidad articular activa de tobillos y cadera.
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <span style="background: rgba(239, 68, 68, 0.2); color: #f87171; font-weight: 800; border-radius: 9999px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.75rem;">2</span>
+              <div>
+                <strong>2. El Test (5 minutos exactos):</strong> En una pista de atletismo, cinta o un tramo llano al aire libre, corre durante exactamente 5 minutos al <strong>ritmo más rápido posible que seas capaz de sostener de forma regular</strong> de principio a fin (¡no arranques al sprint para agotarte al minuto 2!).
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-weight: 800; border-radius: 9999px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.75rem;">3</span>
+              <div>
+                <strong>3. Vuelta a la calma (5 a 10 min):</strong> 1 km a trote regenerativo muy suave y caminata para estabilizar el pulso.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entrada de Ritmo o Metros -->
+        <div style="background: var(--bg-base); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 16px;">
+          <label style="font-size: 0.85rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px; display: block;">
+            ⏱️ Introduce tu resultado del Test de 5 Minutos:
+          </label>
+          <p style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 12px;">
+            Introduce tu <strong>ritmo medio</strong> O la <strong>distancia recorrida</strong> (al escribir en uno, el otro se calcula automáticamente):
+          </p>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px;">
+            <div>
+              <label style="font-size: 0.775rem; color: var(--accent); font-weight: 700; display: block; margin-bottom: 4px;">
+                Ritmo medio registrado:
+              </label>
+              <div style="position: relative;">
+                <input type="text" id="ob-test-pace" class="form-control" style="font-family: var(--font-mono); font-weight: 800; font-size: 1.15rem; padding-right: 50px;" placeholder="04:10" oninput="handleObTestPaceInput()">
+                <span style="position: absolute; right: 12px; top: 10px; font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono);">/km</span>
+              </div>
+              <span style="font-size: 0.7rem; color: var(--text-dim); margin-top: 4px; display: block;">Formato mm:ss (ej. 04:10, 04:40, 05:15)</span>
+            </div>
+
+            <div>
+              <label style="font-size: 0.775rem; color: #38bdf8; font-weight: 700; display: block; margin-bottom: 4px;">
+                O Distancia en los 5 minutos:
+              </label>
+              <div style="position: relative;">
+                <input type="number" id="ob-test-meters" class="form-control" style="font-family: var(--font-mono); font-weight: 800; font-size: 1.15rem; padding-right: 36px;" placeholder="1200" oninput="handleObTestMetersInput()">
+                <span style="position: absolute; right: 12px; top: 10px; font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono);">m</span>
+              </div>
+              <span style="font-size: 0.7rem; color: var(--text-dim); margin-top: 4px; display: block;">Metros completados (ej. 1200m = 04:10/km)</span>
+            </div>
+          </div>
+
+          <!-- Selector de estimación si aún no lo ha hecho -->
+          <div style="border-top: 1px dashed var(--border-subtle); padding-top: 10px; margin-top: 6px;">
+            <span style="font-size: 0.725rem; color: var(--text-muted); font-weight: 600;">¿Aún no has hecho el test? Elige una estimación para empezar hoy:</span>
+            <div style="display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary" style="font-size: 0.725rem; padding: 4px 10px;" onclick="applyPresetTest('06:00', 833)">Iniciación (~6:00/km)</button>
+              <button type="button" class="btn btn-secondary" style="font-size: 0.725rem; padding: 4px 10px;" onclick="applyPresetTest('05:00', 1000)">Intermedio (~5:00/km)</button>
+              <button type="button" class="btn btn-secondary" style="font-size: 0.725rem; padding: 4px 10px;" onclick="applyPresetTest('04:40', 1071)">Avanzado (~4:40/km)</button>
+              <button type="button" class="btn btn-secondary" style="font-size: 0.725rem; padding: 4px 10px;" onclick="applyPresetTest('04:10', 1200)">Élite (~4:10/km)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Previsualización en vivo de Zonas -->
+        <h4 style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 6px;">Previsualización de tus Zonas Calculadas</h4>
+        <div id="ob-preview-zones" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; text-align: center; margin-bottom: 16px;"></div>
+
+        <!-- Series calculadas -->
+        <h4 style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 6px;">Series de Pista (Ritmo y Tiempo)</h4>
+        <div id="ob-preview-series" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; margin-bottom: 16px;"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+          <button class="btn btn-secondary" onclick="goToOnboardingStep(1)">◀ Volver a Perfil</button>
+          <button class="btn btn-primary" onclick="saveOnboardingAndGeneratePlan()">✨ Guardar y Generar mi Plan</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL: CALCULADORA RÁPIDA DE ZONAS VAM -->
+  <div id="modal-zones" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3>Calculadora de Zonas (Test 5 Min VAM)</h3>
+          <p style="font-size: 0.75rem; color: var(--text-muted);">Cálculo oficial de ritmos Z1 a Z5 y series</p>
+        </div>
+        <button class="btn-icon" onclick="closeModal('modal-zones')">✕</button>
+      </div>
+
+      <div class="callout-box">
+        <strong>Instrucciones del Test de 5 Minutos:</strong>
+        <p style="margin-top: 4px;">1 a 2 km calentamiento suave Z1 + 5 minutos al máximo constante + 1 a 2 km trote suave Z1. Introduce el ritmo medio registrado.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+        <div class="form-group" style="margin: 0;">
+          <label>Ritmo Medio Test (mm:ss/km):</label>
+          <input type="text" id="input-test-pace" class="form-control" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem;" placeholder="04:10">
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label>O Metros en 5 min:</label>
+          <input type="number" id="input-test-meters" class="form-control" style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem;" placeholder="1200">
+        </div>
+      </div>
+
+      <h4 style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 6px;">Zonas de Ritmo Calculadas</h4>
+      <table class="zones-table-modal" id="modal-zones-table"></table>
+
+      <h4 style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin: 16px 0 6px 0;">Series de Pista (Ritmo y Tiempo)</h4>
+      <div id="modal-series-table" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center;"></div>
+
+      <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+        <button class="btn btn-primary" onclick="saveZonesFromModal()">Guardar y Recalcular Todo el Plan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: DETALLES DE SESIÓN -->
+  <div id="modal-session" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <span id="session-modal-cat" class="tag-category">ENTRENO</span>
+          <h3 id="session-modal-title" style="margin-top: 4px;">Día</h3>
+        </div>
+        <button class="btn-icon" onclick="closeModal('modal-session')">✕</button>
+      </div>
+
+      <div id="session-modal-workout" style="font-size: 0.95rem; font-weight: 600; line-height: 1.6; margin-bottom: 12px; padding: 12px; background: var(--bg-base); border-radius: var(--radius-md);"></div>
+
+      <div id="session-modal-pautas" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;"></div>
+
+      <div class="form-group">
+        <label>¿Cómo te has sentido en este entrenamiento?</label>
+        <div style="display: flex; gap: 8px; font-size: 1.5rem;" id="session-modal-stars">
+          <span style="cursor: pointer;" onclick="setRating(1)">★</span>
+          <span style="cursor: pointer;" onclick="setRating(2)">★</span>
+          <span style="cursor: pointer;" onclick="setRating(3)">★</span>
+          <span style="cursor: pointer;" onclick="setRating(4)">★</span>
+          <span style="cursor: pointer;" onclick="setRating(5)">★</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Notas personales / Sensaciones / Ritmo real registrado:</label>
+        <textarea id="session-modal-notes" rows="3" class="form-control" placeholder="Ej. Muy buenas sensaciones en las series..."></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+        <button class="btn btn-secondary" id="session-modal-toggle-btn" onclick="toggleCurrentSessionComplete()">Marcar Completado</button>
+        <button class="btn btn-primary" onclick="saveSessionFeedback()">Guardar Notas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: INSTALACIÓN EN MÓVIL (PWA NATIVA) -->
+  <div id="modal-install-app" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 540px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(16, 185, 129, 0.15); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+            📱
+          </div>
+          <div>
+            <h3>Instalar Eimendi Running en tu Móvil</h3>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Como una app nativa: sin descargas pesadas, pantalla completa y 100% offline</p>
+          </div>
+        </div>
+        <button class="btn-icon" onclick="closeModal('modal-install-app')">✕</button>
+      </div>
+
+      <!-- Selector de Sistema Operativo -->
+      <div style="display: flex; gap: 8px; margin-bottom: 16px; background: var(--bg-surface-elevated); padding: 4px; border-radius: var(--radius-md);">
+        <button class="btn" id="pwa-tab-ios" style="flex: 1; border: none; background: var(--accent); color: #042f2e;" onclick="switchPwaTab('ios')">
+          🍏 iPhone / iPad (iOS)
+        </button>
+        <button class="btn btn-secondary" id="pwa-tab-android" style="flex: 1; border: none;" onclick="switchPwaTab('android')">
+          🤖 Android
+        </button>
+      </div>
+
+      <!-- Contenido iOS (Safari) -->
+      <div id="pwa-content-ios" style="display: block;">
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; margin-bottom: 14px;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+            <span>🚀 3 pasos rápidos en Safari (iPhone):</span>
+          </div>
+          <ol style="font-size: 0.825rem; color: var(--text-main); line-height: 1.6; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+            <li>
+              Abre esta web en <strong>Safari</strong> desde tu iPhone.
+            </li>
+            <li>
+              Pulsa el botón de <strong>Compartir</strong> en la barra inferior (icono de un <strong>cuadrado con flecha hacia arriba ⬆️</strong>).
+            </li>
+            <li>
+              Baja un poco en el menú y selecciona <strong>"Añadir a pantalla de inicio"</strong> (<i>Add to Home Screen ➕</i>).
+            </li>
+            <li>
+              Pulsa <strong>"Añadir"</strong> arriba a la derecha.
+            </li>
+          </ol>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; background: rgba(16, 185, 129, 0.08); border: 1px solid var(--accent-border); padding: 12px; border-radius: var(--radius-md); font-size: 0.8rem; color: var(--text-main);">
+          <span style="font-size: 1.25rem;">✨</span>
+          <span>¡Listo! Tendrás el icono de <strong>Eimendi Running</strong> en tu pantalla de inicio y se abrirá a pantalla completa sin barras de navegador.</span>
+        </div>
+      </div>
+
+      <!-- Contenido Android (Chrome) -->
+      <div id="pwa-content-android" style="display: none;">
+        <div id="pwa-android-prompt-box" style="display: none; margin-bottom: 14px; text-align: center; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--accent); padding: 16px; border-radius: var(--radius-md);">
+          <div style="font-weight: 700; font-size: 0.9rem; margin-bottom: 8px;">¡Tu navegador permite instalación en un toque!</div>
+          <button class="btn btn-primary" onclick="triggerPwaPrompt()" style="width: 100%; padding: 10px; font-size: 0.9rem;">
+            ⚡ Instalar Eimendi Running en mi teléfono
+          </button>
+        </div>
+
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; margin-bottom: 14px;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+            <span>🚀 Pasos en Google Chrome (Android):</span>
+          </div>
+          <ol style="font-size: 0.825rem; color: var(--text-main); line-height: 1.6; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+            <li>
+              Abre esta aplicación en <strong>Google Chrome</strong> en tu móvil.
+            </li>
+            <li>
+              Toca el menú de <strong>tres puntos verticales (⋮)</strong> en la esquina superior derecha.
+            </li>
+            <li>
+              Selecciona <strong>"Instalar aplicación"</strong> o <strong>"Añadir a pantalla de inicio"</strong>.
+            </li>
+            <li>
+              Confirma pulsando <strong>"Instalar"</strong>.
+            </li>
+          </ol>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; background: rgba(16, 185, 129, 0.08); border: 1px solid var(--accent-border); padding: 12px; border-radius: var(--radius-md); font-size: 0.8rem; color: var(--text-main);">
+          <span style="font-size: 1.25rem;">⚡</span>
+          <span>Se añadirá como una aplicación independiente con su propio icono y funcionamiento offline.</span>
+        </div>
+      </div>
+
+      <!-- Publicación en Tiendas (Google Play / App Store) -->
+      <div style="margin-top: 14px; border-top: 1px solid var(--border-subtle); padding-top: 12px; font-size: 0.775rem; color: var(--text-muted); line-height: 1.5;">
+        <strong style="color: var(--text-main);">¿Quieres publicarla en Google Play Store o Apple App Store?</strong>
+        <p style="margin-top: 4px;">Al estar desarrollada con arquitectura web moderna PWA, se puede empaquetar nativamente en un clic con <strong>Capacitor</strong> o <strong>TWA</strong> para generar un archivo <code>.aab</code> para Android y compilarla en Xcode para iPhone.</p>
+      </div>
+
+      <div style="margin-top: 16px; text-align: right;">
+        <button class="btn btn-secondary" onclick="closeModal('modal-install-app')">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>Eimendi Running</strong> — Entrenadora Eider Mendiburu
+      </div>
+      <div>
+        100% Offline Ready · Test 5' VAM Oficial · Exportación PDF & iCal
+      </div>
+    </div>
+  </footer>
+
+  <!-- LÓGICA JAVASCRIPT NATIVA (INSTANTÁNEA, CERO BABEL, CERO ESPERAS) -->
+  <script>
+    // --- ESTADO GLOBAL ---
+    const STATE = {
+      darkMode: true,
+      currentView: 'list',
+      selectedWeek: 1,
+      filter: 'all',
+      activeSessionId: null,
+      currentRating: 5,
+      profile: {
+        name: "Eider",
+        goal: "half_marathon",
+        goalLabel: "Media Maratón (21K)",
+        customGoalName: "",
+        raceDate: "2027-04-18",
+        maxDistanceRun: 10,
+        runningDays: [0, 3, 5], // Lun, Jue, Sáb
+        hasOtherSports: false,
+        otherSportType: "Crossfit",
+        otherSportCustom: "",
+        crossDays: [],
+        hasGym: false,
+        gymDays: [],
+        includeHills: true,
+        testPace: "04:10",
+        testMeters: 1200
+      },
+      weeks: []
+    };
+
+    // --- RUTINAS DE FUERZA (VÍDEOS OFICIALES) ---
+    const STRENGTH_VIDEOS = [
+      { id: 1, title: "Fuerza 1 - Base Funcional & Core", url: "https://drive.google.com/file/d/1JTfupKP8tmrWv_08aNGSSySXzsUu71L9/view?usp=sharing", dur: "40 min", focus: "Piernas, glúteos y estabilidad lumbo-pélvica" },
+      { id: 2, title: "Fuerza 2 - Tren Inferior & Prevención", url: "https://drive.google.com/file/d/1GOu6OOinjPaAyVi2w_ilAeWqP8Omy2Qq/view?usp=sharing", dur: "45 min", focus: "Fuerza específica e impacto articular" },
+      { id: 3, title: "Fuerza 3 - Potencia y Pliometría Suave", url: "https://drive.google.com/file/d/1yQ0fcCMexIJgVgW14b69UBDZk5SP6Cjt/view?usp=sharing", dur: "40 min", focus: "Reactividad de tobillo y economía de carrera" },
+      { id: 4, title: "Fuerza 4 - Fuerza Resistencia", url: "https://drive.google.com/file/d/1g65mMe9OeVKEgybM7mURfcjZw_ZkLjd/view?usp=sharing", dur: "45 min", focus: "Mantenimiento postural en fatiga de tiradas largas" },
+      { id: 5, title: "Fuerza 5 - Cadena Posterior & Glúteo Medio", url: "https://drive.google.com/file/d/1I1Kjy6zq0tUacebrsr0qd3uNXhJGx1Op/view?usp=sharing", dur: "40 min", focus: "Prevención de sobrecargas en gemelos y cintilla" },
+      { id: 6, title: "Fuerza 6 - Potencia de Zancada", url: "https://drive.google.com/file/d/1vx-EvvhiEXNgx_5AsSeFYreO54OoSnY/view?usp=sharing", dur: "45 min", focus: "Transferencia directa al ritmo de series y cuestas" },
+      { id: 7, title: "Fuerza 7 - Trabajo Compensatorio", url: "https://drive.google.com/file/d/1AFsBOsdqE4yV1Xx_a0p5_17IpHdhzUN6/view?usp=sharing", dur: "40 min", focus: "Simetría muscular, tobillos y estabilidad" },
+      { id: 8, title: "Fuerza 8 - Activación Pre-competición", url: "https://drive.google.com/file/d/1DsTT46vkixPrPJs86V1Yd1T9IZvcu0ml/view?usp=sharing", dur: "35 min", focus: "Tono neuromuscular sin fatiga residual" },
+      { id: 9, title: "Fuerza 9 - Estabilidad Carga Máxima", url: "https://drive.google.com/file/d/1u2uOrhM3yHngRPYqw_K8zO4S7W3g1ZVm/view?usp=sharing", dur: "45 min", focus: "Refuerzo para semana pico de volumen" }
+    ];
+
+    // --- MATEMÁTICAS EXACTAS DEL TEST DE 5 MIN VAM ---
+    function paceToSec(paceStr) {
+      if (!paceStr) return 250;
+      const parts = paceStr.trim().split(':');
+      const m = parseInt(parts[0], 10) || 0;
+      const s = parseInt(parts[1], 10) || 0;
+      return m * 60 + s;
+    }
+
+    function secToPace(s) {
+      if (!s || isNaN(s) || s <= 0) return "00:00";
+      const m = Math.floor(s / 60);
+      const rem = Math.round(s % 60);
+      return `${m}:${rem < 10 ? '0' : ''}${rem}`;
+    }
+
+    function calculateZones(testPaceSec) {
+      const T = testPaceSec;
+      return {
+        Z5: { label: "Ritmo Máximo / VAM", paceSec: T, pace: secToPace(T), fc: "91-100%", cls: "z5", desc: "Series de sprint y velocidad máxima" },
+        Z4: { label: "Umbral Anaeróbico", paceSec: T + 30, pace: secToPace(T + 30), fc: "81-90%", cls: "z4", desc: "Series de velocidad y ritmo de competición" },
+        Z3: { label: "Ritmo Tempo", paceSec: T + 60, pace: secToPace(T + 60), fc: "71-80%", cls: "z3", desc: "Tiradas más cortas e intensas, cambios de ritmo" },
+        Z2: { label: "Rodaje Aeróbico", paceSec: T + 90, pace: secToPace(T + 90), fc: "61-70%", cls: "z2", desc: "Rodajes largos y fondo aeróbico sin fatiga" },
+        Z1: { label: "Recuperación / Calent.", paceSec: T + 110, pace: secToPace(T + 110), fc: "50-60%", cls: "z1", desc: "Calentamiento, enfriamiento y descanso activo" }
+      };
+    }
+
+    function calculateSeries(testPaceSec) {
+      const T = testPaceSec;
+      return [
+        { dist: "1000m", pace: secToPace(T), time: secToPace(T), note: "Ritmo aprox. Z5" },
+        { dist: "800m",  pace: secToPace(T - 20), time: secToPace((T - 20) * 0.8), note: "T - 20s/km" },
+        { dist: "400m",  pace: secToPace(T - 30), time: secToPace((T - 30) * 0.4), note: "T - 30s/km" },
+        { dist: "200m",  pace: secToPace(T - 40), time: secToPace((T - 40) * 0.2), note: "T - 40s/km" }
+      ];
+    }
+
+    function enrichWorkoutHtml(text, zones) {
+      if (!text) return "";
+      return text.replace(/\b(Z[1-5])\b/g, (match, zKey) => {
+        const z = zones[zKey];
+        if (!z) return match;
+        return `<span class="zone-badge ${z.cls}">${zKey} [${z.pace}/km]</span>`;
+      });
+    }
+
+    function getMonday(d) {
+      const date = new Date(d);
+      const day = date.getDay();
+      const diff = (day === 0 ? -6 : 1) - day;
+      date.setDate(date.getDate() + diff);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+
+    function parseAndNormalizeRaceDate(dateStr) {
+      if (!dateStr) return null;
+      const parts = dateStr.split('-');
+      if (parts.length !== 3) return new Date(dateStr);
+      let year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1; // 0-indexed
+      const day = parseInt(parts[2], 10);
+
+      let target = new Date(year, month, day, 0, 0, 0);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      // Si la fecha elegida ya pasó respecto a hoy (ej: el usuario elige Abril y estamos en Noviembre),
+      // se proyecta automáticamente a la edición del próximo año para calcular las semanas reales
+      const diffDays = Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+      if (diffDays < 0) {
+        target.setFullYear(today.getFullYear() + 1);
+      }
+      return target;
+    }
+
+    function getWeeksRemaining(raceDateStr) {
+      if (!raceDateStr) return 12;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const currentMonday = getMonday(today);
+      const race = parseAndNormalizeRaceDate(raceDateStr);
+      if (!race) return 12;
+
+      const diffDays = Math.ceil((race.getTime() - currentMonday.getTime()) / (1000 * 60 * 60 * 24));
+      
+      // Si la carrera cae en la misma semana actual
+      if (diffDays >= 0 && diffDays <= 6) return 1;
+      if (diffDays < 0) return 1;
+
+      // Semanas exactas hasta la fecha objetivo (hasta 40 semanas)
+      const weeks = Math.ceil(diffDays / 7);
+      return Math.max(1, Math.min(40, weeks));
+    }
+
+    function getEffectiveGoalTitle(p) {
+      if (!p) return 'Media Maratón (21K)';
+      if (p.goal === 'custom') {
+        return p.customGoalName || 'Reto Personalizado';
+      }
+      if (p.goal === 'half_marathon') return 'Media Maratón (21K)';
+      if (p.goal === 'behobia') return '20K Behobia - San Sebastián';
+      if (p.goal === '10k') return 'Carrera de 10K';
+      if (p.goal === '5k') return 'Carrera de 5K';
+      if (p.goal === 'marathon') return 'Maratón (42K)';
+      if (p.goal === 'beginner') return 'Empezar a correr';
+      return p.goalLabel || 'Media Maratón (21K)';
+    }
+
+    // --- GENERADOR ADAPTATIVO COMPLETO ---
+    function generateAdaptivePlan() {
+      const p = STATE.profile;
+      const totalWeeks = getWeeksRemaining(p.raceDate);
+      const currentMonday = getMonday(new Date());
+      const DAY_NAMES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+      
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const todayStr = today.toISOString().split('T')[0];
+      const todayDayIdx = (today.getDay() === 0 ? 6 : today.getDay() - 1); // 0=Lun, 1=Mar... 6=Dom
+
+      const hasOther = p.hasOtherSports && p.crossDays && p.crossDays.length > 0;
+      const sportName = (p.otherSportType === 'Otro' && p.otherSportCustom) ? p.otherSportCustom : p.otherSportType;
+      const isCrossfit = hasOther && (sportName.toLowerCase().includes('crossfit') || p.otherSportType === 'Crossfit');
+      const maxKm = parseFloat(p.maxDistanceRun) || (p.goal === '10k' ? 5 : p.goal === '5k' ? 3 : p.goal === 'marathon' ? 20 : p.goal === 'beginner' ? 2 : 10);
+
+      const weeks = [];
+
+      for (let w = 0; w < totalWeeks; w++) {
+        const weekNum = w + 1;
+        const isRaceWeek = (w === totalWeeks - 1 && p.goal !== 'beginner');
+        const isTaperWeek = (w === totalWeeks - 2 && p.goal !== 'beginner' && totalWeeks >= 3);
+
+        const week1RunDays = [...p.runningDays];
+        if (w === 0) {
+          const missedDaysBeforeToday = p.runningDays.filter(d => d < todayDayIdx).length;
+          if (missedDaysBeforeToday > 0 && !week1RunDays.includes(todayDayIdx) && !(hasOther && p.crossDays.includes(todayDayIdx))) {
+            week1RunDays.push(todayDayIdx);
+            week1RunDays.sort((a, b) => a - b);
+          }
+        }
+        const activeRunDays = (w === 0) ? week1RunDays : p.runningDays;
+        const numRunDays = activeRunDays.length || 3;
+
+        const runningPool = getWorkoutsForGoal(p.goal, w, totalWeeks, isRaceWeek, isTaperWeek, isCrossfit, p.includeHills !== false, maxKm, numRunDays);
+        let runIdx = 0;
+        const days = [];
+
+        for (let d = 0; d < 7; d++) {
+          const dDate = new Date(currentMonday);
+          dDate.setDate(dDate.getDate() + (w * 7) + d);
+          const dateStr = dDate.toISOString().split('T')[0];
+
+          let session = {
+            id: `w${weekNum}-d${d}`,
+            dayIndex: d,
+            dayName: DAY_NAMES[d],
+            date: dateStr,
+            completed: false,
+            userNotes: '',
+            rating: 5
+          };
+
+          // DÍAS ANTERIORES AL INICIO DEL PLAN (En Semana 1, cualquier día previo a hoy)
+          if (w === 0 && dateStr < todayStr) {
+            session.type = "pre_plan";
+            session.cat = "Previo al Plan";
+            session.workout = "Día previo al inicio del plan";
+            session.obs = "Tu preparación arranca hoy.";
+            session.isPrePlan = true;
+            days.push(session);
+            continue; // No consume entrenamientos del pool ni muestra tareas pendientes
+          }
+
+          const activeRunDays = (w === 0) ? week1RunDays : p.runningDays;
+          const isRunDay = activeRunDays.includes(d);
+          const isCrossDay = hasOther && p.crossDays.includes(d);
+          const isGymDay = p.hasGym && p.gymDays && p.gymDays.includes(d) && !isCrossDay;
+
+          if (isRaceWeek && d === 6) {
+            const gTitle = getEffectiveGoalTitle(p);
+            session.type = "race";
+            session.cat = "Competición";
+            session.workout = `¡DÍA DE LA COMPETICIÓN! - ${gTitle}`;
+            session.obs = "¡DISFRUTA! Has completado toda la preparación. Sal con cabeza, dosifica y vuela en la meta.";
+            session.km = (p.goal === '10k' ? 10 : p.goal === '5k' ? 5 : p.goal === 'half_marathon' ? 21 : p.goal === 'behobia' ? 20 : p.goal === 'marathon' ? 42 : null);
+          } else if (isRaceWeek && d === 5) {
+            session.type = "activation";
+            session.cat = "Activación";
+            const actKm = (maxKm <= 6) ? 3.5 : (maxKm <= 10) ? 4 : 5;
+            session.workout = (actKm <= 3.5) ? "1.5km Z1 + 1km Z4 + 1km Z1" : "2km Z1 + 1.5km Z4 + 1km Z1";
+            session.obs = `Activación suave previa (${actKm}km). Despertar piernas sin generar fatiga para mañana.`;
+            session.km = actKm;
+          } else if (isRunDay && runIdx < runningPool.length) {
+            const r = runningPool[runIdx];
+            session.type = r.type;
+            session.cat = r.cat;
+            session.workout = r.workout;
+            session.obs = r.obs + (isCrossfit ? ' | Adaptado a fatiga de Crossfit: cadencia ligera y buena técnica.' : '');
+            if (w === 0 && dateStr === todayStr) {
+              session.obs = `⭐ ¡HOY ARRANCA TU PLAN! ${session.obs}`;
+            }
+            session.km = r.km || null;
+            runIdx++;
+          } else if (isCrossDay) {
+            session.type = "cross";
+            session.cat = `${sportName}`;
+            session.workout = `SESIÓN DE ${sportName.toUpperCase()}`;
+            session.obs = isCrossfit 
+              ? "Trabajo metabólico/fuerza. Cuida no fatigar gemelos excesivamente si al día siguiente corres."
+              : `Entrenamiento de ${sportName}. Mantén buena hidratación y técnica.`;
+          } else if (isGymDay) {
+            session.type = "strength";
+            session.cat = "Fuerza";
+            session.workout = "FUERZA FUNCIONAL & CORE (Eimendi)";
+            session.obs = "Trabajo preventivo de tren inferior y estabilidad lumbo-pélvica (40 min).";
+          } else {
+            session.type = "rest";
+            session.cat = "Descanso";
+            session.workout = (w === 0 && dateStr === todayStr) ? "¡INICIO DE TU PLAN HOY!" : "DESCANSO";
+            session.obs = (w === 0 && dateStr === todayStr) 
+              ? "Hoy arranca oficialmente tu plan. Mañana o en tu próximo día asignado tienes tu primera sesión de carrera." 
+              : "Recuperación e hidratación.";
+          }
+
+          days.push(session);
+        }
+
+        let wTitle = `Semana ${weekNum}`;
+        let wFocus = "";
+
+        if (isRaceWeek) {
+          wTitle = `Semana ${weekNum} - SEMANA DE COMPETICIÓN`;
+          wFocus = "Afilamiento, frescura neuromuscular y día de carrera.";
+        } else if (isTaperWeek) {
+          wTitle = `Semana ${weekNum} - Tapering & Descenso`;
+          wFocus = "Reducción estratégica de volumen para llegar con máxima energía.";
+        } else {
+          wTitle = `Semana ${weekNum} - ${getWeekPhaseName(w, totalWeeks)}`;
+          wFocus = isCrossfit 
+            ? "Calidad aeróbica y ritmo específico compatibilizado con tus días de Crossfit." 
+            : `Desarrollo aeróbico progresivo desde base de ${maxKm}km.`;
+        }
+
+        weeks.push({
+          weekNum,
+          title: wTitle,
+          focus: wFocus,
+          isRaceWeek,
+          days
+        });
+      }
+
+      // Semana Post-Competición
+      if (p.goal !== 'beginner') {
+        const postW = totalWeeks + 1;
+        const postEasyKm = Math.min(6, Math.max(3, Math.round(maxKm * 0.6)));
+        const postLongKm = Math.min(8, Math.max(4, Math.round(maxKm * 0.8)));
+        const postDays = [
+          { dayIndex: 0, dayName: "Lunes", type: "rest", cat: "Descanso", workout: "DESCANSO", obs: "Recuperación post-competición" },
+          { dayIndex: 1, dayName: "Martes", type: "rest", cat: "Descanso", workout: "DESCANSO", obs: "Paseo regenerativo suave o descanso total" },
+          { dayIndex: 2, dayName: "Miércoles", type: "easy_run", cat: "Rodaje", workout: `${postEasyKm}Km Z2`, obs: "Easy run suave y regenerativo para soltar piernas", km: postEasyKm },
+          { dayIndex: 3, dayName: "Jueves", type: "strength", cat: "Fuerza", workout: "FUERZA - Movilidad y Core", obs: "Movilidad articular sin impacto", videoUrl: STRENGTH_VIDEOS[3].url },
+          { dayIndex: 4, dayName: "Viernes", type: "test", cat: "Test", workout: "2 km calentamiento a ritmo cómodo Z1 + 5’ a ritmo máximo pero constante + 2 km enfriamiento Z1", obs: "Nuevo Test de 5 min VAM para evaluar tu evolución y recalibrar zonas.", km: 5 },
+          { dayIndex: 5, dayName: "Sábado", type: "long_run", cat: "Tirada Larga", workout: `${postLongKm}Km Z2`, obs: "Tirada suave regenerativa para asimilar el esfuerzo de la carrera", km: postLongKm },
+          { dayIndex: 6, dayName: "Domingo", type: "rest", cat: "Descanso", workout: "DESCANSO", obs: "" }
+        ].map(d => {
+          const dDate = new Date(currentMonday);
+          dDate.setDate(dDate.getDate() + (totalWeeks * 7) + d.dayIndex);
+          return {
+            ...d,
+            id: `w${postW}-d${d.dayIndex}`,
+            date: dDate.toISOString().split('T')[0],
+            completed: false,
+            userNotes: '',
+            rating: 5
+          };
+        });
+
+        weeks.push({
+          weekNum: postW,
+          title: `Semana ${postW} - SEMANA POST-COMPETICIÓN`,
+          focus: "Recuperación activa, test de evaluación VAM y consolidación",
+          isPostRaceWeek: true,
+          days: postDays
+        });
+      }
+
+      return weeks;
+    }
+
+    function getWorkoutsForGoal(goal, wIdx, totalW, isRace, isTaper, isCf, includeHills = true, maxKm = 10, numRunDays = 3) {
+      // 1. SEMANA DE COMPETICIÓN (RACE WEEK)
+      // En la semana de la carrera NUNCA se hace una tirada larga ni entrenamientos extenuantes.
+      // El objetivo es afilamiento (tapering), recuperación y activación con cero fatiga residual.
+      if (isRace) {
+        let pool = [];
+        if (goal === '5k') {
+          pool = [
+            { type: "progressive", cat: "Rodaje", workout: "1km Z1 + 1.5km Z2 + 1km Z3 + 0.5km Z1", obs: "Rodaje suave de activación (4km). Piernas ágiles.", km: 4 },
+            { type: "intervals", cat: "Series", workout: "1.5km Z1 + 3 x 300m Z4 + 1km Z1", obs: "Toque de chispa pre-carrera. Descanso 1'30''.", km: 3.5 }
+          ];
+        } else if (goal === '10k') {
+          if (maxKm <= 6) {
+            pool = [
+              { type: "progressive", cat: "Rodaje", workout: "1.5km Z1 + 1.5km Z2 + 1km Z3 + 0.5km Z1", obs: "Rodaje suave de activación (4.5km). Cero fatiga.", km: 4.5 },
+              { type: "intervals", cat: "Series", workout: "1.5km Z1 + 3 x 400m Z4 + 1km Z1", obs: "Toque de ritmo 10K sin acumular cansancio. Descanso 1'30''.", km: 3.7 }
+            ];
+          } else {
+            pool = [
+              { type: "progressive", cat: "Rodaje", workout: "1.5km Z1 + 2km Z2 + 1.5km Z3 + 1km Z1", obs: "Progresivo controlado (6km). Sensaciones sueltas.", km: 6 },
+              { type: "intervals", cat: "Series", workout: "1.5km Z1 + 3 x 800m Z4 + 1km Z1", obs: "Toque de ritmo competitivo 10K. Descanso amplio 1'30''.", km: 5 }
+            ];
+          }
+        } else {
+          // 21K / Behobia / 42K
+          if (maxKm <= 12) {
+            pool = [
+              { type: "progressive", cat: "Rodaje", workout: "2km Z1 + 2km Z2 + 1.5km Z3 + 0.5km Z1", obs: "Progresivo suave controlado (6km). Piernas frescas.", km: 6 },
+              { type: "intervals", cat: "Series", workout: "2km Z1 + 3 x 800m Z4 + 1km Z1", obs: "Toque de ritmo de carrera. Descanso 1'30''.", km: 5.5 }
+            ];
+          } else {
+            pool = [
+              { type: "progressive", cat: "Rodaje", workout: "2km Z1 + 2km Z2 + 2km Z3 + 1km Z4 + 1km Z1", obs: "Progresivo controlado (8km). Sensaciones sueltas.", km: 8 },
+              { type: "intervals", cat: "Series", workout: "2km Z1 + 4 x 1000m Z4 + 1km Z1", obs: "Toque de ritmo competitivo. Descanso 1'30''.", km: 7 }
+            ];
+          }
+        }
+        if (numRunDays > pool.length) {
+          pool.push({
+            type: "easy_run",
+            cat: "Rodaje",
+            workout: (maxKm <= 6 ? "3km Z2 suave" : "4.5km Z2 suave"),
+            obs: "Trote muy suave regenerativo para mantener el cuerpo activo sin fatiga.",
+            km: (maxKm <= 6 ? 3 : 4.5)
+          });
+        }
+        return pool;
+      }
+
+      // 2. INICIACIÓN (BEGINNER / CACOs)
+      if (goal === 'beginner') {
+        const cacoLevel = Math.min(8, wIdx + 1);
+        const cacoOptions = [
+          "5 x (2' Correr suave Z1-Z2 + 2' Caminar)",
+          "5 x (3' Correr suave Z1-Z2 + 2' Caminar)",
+          "4 x (4' Correr suave Z2 + 2' Caminar)",
+          "4 x (5' Correr suave Z2 + 1'30'' Caminar)",
+          "3 x (7' Correr suave Z2 + 2' Caminar)",
+          "3 x (10' Correr suave Z2 + 2' Caminar)",
+          "2 x (15' Correr Z2 + 2' Caminar)",
+          "25' Carrera continua Z2 ininterrumpida"
+        ];
+        const caco = cacoOptions[cacoLevel - 1] || "30' Carrera continua Z2";
+        const baseKm = Math.max(2.5, Math.min(maxKm, 4));
+        const progKm = Math.min(6, Math.round(baseKm + wIdx * 0.4));
+
+        const pool = [
+          { type: "fartlek", cat: "CACOs", workout: `10' Caminata + ${caco} + 5' Caminata`, obs: "Caminar y correr. Respiración cómoda.", km: progKm },
+          { type: "easy_run", cat: "Rodaje Suave", workout: `10' Caminata + ${Math.min(20, 10 + wIdx * 2)}' Correr Z2 + 5' Caminata`, obs: "Ritmo continuo muy cómodo de conversación.", km: Math.max(3, progKm - 0.5) },
+          { type: "long_run", cat: "Tirada Iniciación", workout: `Calentamiento + ${caco} + 10' Estiramientos`, obs: "Fin de semana activo sin impacto lesivo.", km: progKm }
+        ];
+        if (numRunDays >= 4) {
+          pool.splice(1, 0, { type: "easy_run", cat: "Paseo & Trote", workout: "15' Caminata ligera + 10' Trote suave Z1 + 5' Caminata", obs: "Descanso activo para fortalecer tendones.", km: 3 });
+        }
+        return pool;
+      }
+
+      // 3. CÁLCULO DE PROGRESIÓN DE TIRADA LARGA (KILOMETRAJE SEGURO)
+      let peakLong;
+      let startLong;
+      let usableBuild = Math.max(1, totalW - 2);
+
+      if (goal === '5k') {
+        peakLong = isCf ? 6 : 7.5;
+        startLong = Math.max(3, Math.min(maxKm, 5));
+      } else if (goal === '10k') {
+        peakLong = isCf ? 10 : 12;
+        startLong = Math.max(3.5, Math.min(maxKm, 8));
+      } else if (goal === 'marathon') {
+        peakLong = isCf ? 28 : 32;
+        startLong = Math.max(12, Math.min(maxKm, 20));
+        usableBuild = Math.max(1, totalW - 3);
+      } else {
+        // Media Maratón (21K) / Behobia (20K) / Custom
+        peakLong = isCf ? 17 : 20;
+        startLong = Math.max(5, Math.min(maxKm, 14));
+      }
+
+      let longKm;
+      const isDeload = (wIdx % 3 === 2 && wIdx > 0 && !isTaper);
+      if (isTaper) {
+        longKm = Math.max(startLong, Math.round(peakLong * 0.65));
+      } else if (totalW <= 2) {
+        longKm = startLong;
+      } else {
+        const ratio = Math.min(1, wIdx / usableBuild);
+        const raw = startLong + (peakLong - startLong) * ratio;
+        longKm = isDeload ? Math.max(startLong, Math.round(raw - 2)) : Math.round(raw);
+      }
+      if (isCf) longKm = Math.max(startLong, Math.round(longKm * 0.88));
+
+      // 4. ROTACIÓN DE FORMATO DE LA TIRADA LARGA (NO SIEMPRE EL MISMO TIPO)
+      let longRunSession;
+      const longCycle = wIdx % 3;
+      if (isTaper) {
+        longRunSession = {
+          type: "long_run",
+          cat: "Tirada Larga",
+          workout: `${longKm}Km Z2`,
+          obs: `Tirada larga de tapering: kilometraje reducido para asimilar volumen y acumular glucógeno.`,
+          km: longKm
+        };
+      } else if (isDeload) {
+        longRunSession = {
+          type: "long_run",
+          cat: "Tirada Larga",
+          workout: `${longKm}Km Z2 suave`,
+          obs: `Semana de asimilación: tirada con kilometraje reducido para permitir la supercompensación muscular.`,
+          km: longKm
+        };
+      } else if (longCycle === 1 && longKm >= 7) {
+        const finishKm = Math.min(3, Math.round(longKm * 0.25));
+        const warmKm = longKm - finishKm - 1;
+        longRunSession = {
+          type: "long_run",
+          cat: "Tirada Larga",
+          workout: (longKm >= 10) ? `2km Z1 + ${warmKm}km Z2 + ${finishKm}km Z3 + 1km Z1` : `${longKm - finishKm}km Z2 + ${finishKm}km Z3`,
+          obs: `Tirada larga progresiva: los últimos ${finishKm}km a ritmo Z3 sostenido simulando el final de la carrera.`,
+          km: longKm
+        };
+      } else if (longCycle === 2 && longKm >= 9) {
+        const blockReps = (longKm >= 14) ? 3 : 2;
+        const z2Part = Math.round((longKm - 3 - blockReps) / blockReps);
+        longRunSession = {
+          type: "long_run",
+          cat: "Tirada Larga",
+          workout: (longKm >= 12) ? `2km Z1 + ${blockReps} x (${z2Part}km Z2 + 1km Z4) + 1km Z1` : `${longKm}km Z2 con 3 cambios vivos de 1km a ritmo carrera`,
+          obs: `Tirada larga estructurada con intervalos a ritmo de carrera Z4 para acostumbrar la musculatura a la fatiga.`,
+          km: longKm
+        };
+      } else {
+        longRunSession = {
+          type: "long_run",
+          cat: "Tirada Larga",
+          workout: `${longKm}Km Z2`,
+          obs: `Tirada larga aeróbica continua. Ritmo cómodo Z2 de conversación (base inicial ${maxKm}km).`,
+          km: longKm
+        };
+      }
+
+      // 5. BANCO ROTATIVO DE SESIONES DE CALIDAD (ROTAN EN CADA SEMANA wIdx % 8)
+      // Garantiza que NINGÚN lunes ni NINGÚN miércoles se repita el tipo de entreno
+      const cycle = wIdx % 8;
+      const isShort = maxKm < 7;
+
+      // Sesión A (Generalmente Día 1 de carrera: Lunes / Martes)
+      let sessionA;
+      switch (cycle) {
+        case 0:
+          // Fartlek Clásico Eimendi con 200m rápidos
+          sessionA = isShort
+            ? { type: "fartlek", cat: "Fartlek", workout: "1.5km Z1 + 5 x (1´Z4 + 2´Z2) + 1km Z1", obs: "Fartlek clásico con cambios de ritmo. 1' descanso activo.", km: 5 }
+            : { type: "fartlek", cat: "Fartlek", workout: "2km Z1 + 6 x (1´Z4 + 2´Z2) + 4 x 200m Z5 + 1Km Z1", obs: "Fartlek clásico con cambios de ritmo. 1' de descanso en los 200s.", km: 8 };
+          break;
+        case 1:
+          // Cuestas o Velocidad Llanas
+          if (includeHills) {
+            sessionA = isShort
+              ? { type: "hills", cat: "Series", workout: "1.5km Z1 + 8 x 150m (en cuestas) + 1km Z1", obs: "Fuerza específica en cuesta. Recuperar bajando al trote muy suave.", km: 5 }
+              : { type: "hills", cat: "Series", workout: "2km Z1 + 10 x 200m (en cuestas) + 1km Z3 + 1km Z1", obs: "Fuerza específica en cuesta. Recuperar bajando al trote muy suave.", km: 7 };
+          } else {
+            sessionA = isShort
+              ? { type: "intervals", cat: "Series", workout: "1.5km Z1 + 8 x 200m Z5 + 1km Z1", obs: "Series fraccionadas de velocidad y reactividad de tobillo. 1' descanso.", km: 4.5 }
+              : { type: "intervals", cat: "Series", workout: "2km Z1 + 10 x 200m Z5 + 1km Z3 + 1km Z1", obs: "Series de velocidad y reactividad de tobillo. 1' descanso al trote.", km: 7 };
+          }
+          break;
+        case 2:
+          // Series Reina 1000m
+          sessionA = isShort
+            ? { type: "intervals", cat: "Series", workout: "1.5km Z1 + 4 x 600m Z4 + 1km Z1", obs: "Series clave a ritmo objetivo. 1'30'' recuperación al trote.", km: 5 }
+            : { type: "intervals", cat: "Series", workout: "2km Z1 + 5 x 1000m Z4 + 1km Z1", obs: "Series reina a ritmo objetivo de carrera. 1'30'' recuperación al trote.", km: 8 };
+          break;
+        case 3:
+          // Semana de Descarga / Asimilación: Rodaje Suave + Rectas
+          sessionA = isShort
+            ? { type: "easy_run", cat: "Rodaje", workout: "4.5km Z2 + 4 x 80m rectas progresivas", obs: "Semana de asimilación: rodaje aeróbico suave para soltar piernas y rectas finales.", km: 5 }
+            : { type: "easy_run", cat: "Rodaje", workout: "6km Z2 + 5 x 100m rectas progresivas", obs: "Semana de asimilación: rodaje aeróbico suave para soltar piernas y rectas finales.", km: 6.5 };
+          break;
+        case 4:
+          // Fartlek In Crescendo
+          sessionA = isShort
+            ? { type: "fartlek", cat: "Fartlek", workout: "1.5km Z1 + 3 x (3´ acelerando de Z3 a Z4 + 2´Z2) + 1km Z1", obs: "Fartlek in crescendo: ritmo progresivo acelerando dentro de cada bloque.", km: 5 }
+            : { type: "fartlek", cat: "Fartlek", workout: "2km Z1 + 4 x (4´ in crescendo de Z3 a Z4 + 2´Z2) + 4 x 200m Z5 + 1km Z1", obs: "Fartlek in crescendo: ritmo progresivo acelerando dentro de cada bloque.", km: 8 };
+          break;
+        case 5:
+          // Series de Umbral Largo
+          sessionA = isShort
+            ? { type: "intervals", cat: "Series", workout: "1.5km Z1 + 2 x 1200m Z4 + 1km Z1", obs: "Series largas de ritmo sostenido en umbral. 2' recuperación al trote.", km: 5 }
+            : { type: "intervals", cat: "Series", workout: (goal === '10k' ? "2km Z1 + 4 x 1200m Z4 + 1km Z1" : "2km Z1 + 3 x 1500m Z4 + 1km Z1"), obs: "Series largas de ritmo sostenido en umbral. 2' recuperación al trote.", km: 8 };
+          break;
+        case 6:
+          // Fartlek Aeróbico de Bloques Medios
+          sessionA = isShort
+            ? { type: "fartlek", cat: "Fartlek", workout: "1.5km Z1 + 4 x (2´Z4 + 2´Z2) + 1km Z1", obs: "Fartlek aeróbico sostenido. Enfoque en transiciones suaves.", km: 5 }
+            : { type: "fartlek", cat: "Fartlek", workout: "2km Z1 + 4 x (3´Z4 + 2´Z2) + 1km Z1", obs: "Fartlek aeróbico sostenido. Enfoque en transiciones suaves.", km: 7.5 };
+          break;
+        case 7:
+        default:
+          // Pirámide de Ritmo
+          sessionA = isShort
+            ? { type: "intervals", cat: "Series", workout: "1.5km Z1 + 300m + 600m + 800m + 400m Z4-Z5 + 1km Z1", obs: "Escalera piramidal. Descanso proporcional (1' a 1'30'') entre tramos.", km: 5 }
+            : { type: "intervals", cat: "Series", workout: "2km Z1 + 400m + 800m + 1200m + 800m + 400m Z4-Z5 + 1km Z1", obs: "Escalera piramidal. Descanso proporcional (1' a 1'30'') entre tramos.", km: 8 };
+          break;
+      }
+
+      // Sesión B (Generalmente Día 2 de carrera: Miércoles / Jueves)
+      let sessionB;
+      switch (cycle) {
+        case 0:
+          // Rodaje Tempo Z3 Sostenido
+          sessionB = isShort
+            ? { type: "tempo", cat: "Rodaje", workout: "1.5km Z1 + 3km Z3 + 1km Z1", obs: "Rodaje tempo en ritmo vivo sostenido. Concentración y respiración fluida.", km: 5.5 }
+            : { type: "tempo", cat: "Rodaje", workout: "2km Z1 + 5km Z3 + 1km Z1", obs: "Rodaje tempo en ritmo vivo sostenido. Concentración y respiración fluida.", km: 8 };
+          break;
+        case 1:
+          // Rodaje Progresivo 3 Fases
+          sessionB = isShort
+            ? { type: "progressive", cat: "Rodaje", workout: "1.5km Z1 + 2km Z2 + 1.5km Z3 + 0.5km Z1", obs: "Progresivo controlado de menos a más, finalizando con ritmo vivo.", km: 5.5 }
+            : { type: "progressive", cat: "Rodaje", workout: "2km Z1 + 2km Z2 + 2km Z3 + 1km Z1", obs: "Progresivo controlado de menos a más, finalizando con ritmo vivo.", km: 7 };
+          break;
+        case 2:
+          // Fartlek Largo con Transfer a Velocidad
+          sessionB = isShort
+            ? { type: "fartlek", cat: "Fartlek", workout: "1.5km Z1 + 3 x (2´30'' Z4 + 2´Z2) + 1km Z1", obs: "Fartlek de fondo con transferencia a ritmo alegre.", km: 5 }
+            : { type: "fartlek", cat: "Fartlek", workout: "2km Z1 + 3 x (4´Z4 + 3´Z2) + 4 x 200m + 1km Z1", obs: "Fartlek de fondo con transferencia final a velocidad.", km: 8 };
+          break;
+        case 3:
+          // Series Cortas de Pista 400m
+          sessionB = isShort
+            ? { type: "intervals", cat: "Series", workout: "1.5km Z1 + 4 x 400m Z4-Z5 + 1km Z1", obs: "Toque de chispa rápido con bajo volumen para asimilar la semana.", km: 4.5 }
+            : { type: "intervals", cat: "Series", workout: "2km Z1 + 6 x 400m Z4-Z5 + 1km Z1", obs: "Toque de chispa rápido con bajo volumen para asimilar la semana.", km: 6 };
+          break;
+        case 4:
+          // Series 800m Potencia Aeróbica
+          sessionB = isShort
+            ? { type: "intervals", cat: "Series", workout: "1.5km Z1 + 3 x 800m Z4 + 1km Z1", obs: "Series de potencia aeróbica. Descanso 1'30'' al trote.", km: 5 }
+            : { type: "intervals", cat: "Series", workout: "2km Z1 + 5 x 800m Z4 + 1km Z1", obs: "Series de potencia aeróbica. Descanso 1'30'' al trote.", km: 8 };
+          break;
+        case 5:
+          // Rodaje a Ritmo Objetivo de Carrera Z4
+          sessionB = isShort
+            ? { type: "tempo", cat: "Rodaje", workout: "1.5km Z1 + 15´ a ritmo carrera Z4 + 1km Z1", obs: "Bloque continuo a ritmo objetivo de carrera para memorizar sensaciones.", km: 5 }
+            : { type: "tempo", cat: "Rodaje", workout: "2km Z1 + 25´ a ritmo carrera Z4 + 1km Z1", obs: "Bloque continuo a ritmo objetivo de carrera para memorizar sensaciones.", km: 8 };
+          break;
+        case 6:
+          // Fartlek Activo
+          sessionB = isShort
+            ? { type: "fartlek", cat: "Fartlek", workout: "1.5km Z1 + 4 x (500m Z4 + 300m Z2) + 1km Z1", obs: "Fartlek estructurado con recuperación activa en Z2.", km: 5 }
+            : { type: "fartlek", cat: "Fartlek", workout: "2km Z1 + 6 x (800m Z4 + 400m Z2) + 1km Z1", obs: "Fartlek estructurado con recuperación activa en Z2.", km: 8 };
+          break;
+        case 7:
+        default:
+          // Rodaje Progresivo Vivo
+          sessionB = isShort
+            ? { type: "progressive", cat: "Rodaje", workout: "1.5km Z1 + 2.5km Z2 + 1km Z3 + 0.5km Z1", obs: "Rodaje progresivo dinámico para activar piernas sin fatiga.", km: 5.5 }
+            : { type: "progressive", cat: "Rodaje", workout: "2km Z1 + 3km Z2 + 2km Z3 + 1km Z1", obs: "Rodaje progresivo dinámico para activar piernas sin fatiga.", km: 8 };
+          break;
+      }
+
+      // Sesión de Relleno para 4 o 5 días: Easy Run Suave Z2
+      const easyRunSession = {
+        type: "easy_run",
+        cat: "Rodaje",
+        workout: isShort ? "4km Z2 suave" : "6km Z2 suave",
+        obs: "Rodaje aeróbico suave regenerativo para sumar volumen sin impacto lesivo.",
+        km: isShort ? 4 : 6
+      };
+
+      const tempoAlternative = {
+        type: "tempo",
+        cat: "Rodaje",
+        workout: isShort ? "1.5km Z1 + 2.5km Z3 + 1km Z1" : "2km Z1 + 4km Z3 + 1km Z1",
+        obs: "Rodaje vivo a ritmo tempo controlado.",
+        km: isShort ? 5 : 7
+      };
+
+      // Ensamblaje según días de carrera elegidos (numRunDays: 1, 2, 3, 4, 5...)
+      if (numRunDays <= 1) {
+        return [ longRunSession ];
+      } else if (numRunDays === 2) {
+        return [ sessionA, longRunSession ];
+      } else if (numRunDays === 3) {
+        return [ sessionA, sessionB, longRunSession ];
+      } else if (numRunDays === 4) {
+        return [ sessionA, easyRunSession, sessionB, longRunSession ];
+      } else {
+        // 5 o más días
+        return [ sessionA, easyRunSession, sessionB, tempoAlternative, longRunSession ];
+      }
+    }
+
+    function getWeekPhaseName(wIdx, totalW) {
+      if (wIdx === 0) return "Adaptación & Fartlek Introductorio";
+      const cycle = wIdx % 8;
+      const phases = [
+        "Fartlek & Rodaje Tempo",
+        "Fuerza en Cuesta & Progresivo",
+        "Series Clave 1000m & Fondo",
+        "Asimilación & Reactividad",
+        "Potencia Aeróbica & Fartlek In Crescendo",
+        "Resistencia a Umbral & Ritmo Competición",
+        "Fartlek Extensivo & Tirada con Bloques",
+        "Velocidad Piramidal & Consolidación"
+      ];
+      return phases[cycle] || "Desarrollo Aeróbico";
+    }
+
+    function loadSavedState() {
+      try {
+        const p = localStorage.getItem('eimendi_profile');
+        if (p) {
+          const parsed = JSON.parse(p);
+          if (parsed.goal !== 'custom') {
+            parsed.customGoalName = '';
+          }
+          if (parsed.goal === 'half_marathon' && (!parsed.goalLabel || parsed.goalLabel.includes('Behobia'))) {
+            parsed.goalLabel = 'Media Maratón (21K)';
+          }
+          if (parsed.includeHills === undefined) {
+            parsed.includeHills = true;
+          }
+          if (parsed.maxDistanceRun === undefined) {
+            parsed.maxDistanceRun = (parsed.goal === '10k' ? 5 : parsed.goal === '5k' ? 3 : parsed.goal === 'marathon' ? 20 : parsed.goal === 'beginner' ? 2 : 10);
+          }
+          Object.assign(STATE.profile, parsed);
+        }
+        const w = localStorage.getItem('eimendi_weeks');
+        const planVer = localStorage.getItem('eimendi_plan_version');
+        if (w && planVer === 'v4_variety') {
+          STATE.weeks = JSON.parse(w);
+        } else {
+          STATE.weeks = generateAdaptivePlan();
+          localStorage.setItem('eimendi_plan_version', 'v4_variety');
+          saveState();
+        }
+      } catch(e) {}
+
+      if (!STATE.weeks || STATE.weeks.length === 0) {
+        STATE.weeks = generateAdaptivePlan();
+        localStorage.setItem('eimendi_plan_version', 'v4_variety');
+        saveState();
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem('eimendi_profile', JSON.stringify(STATE.profile));
+      localStorage.setItem('eimendi_weeks', JSON.stringify(STATE.weeks));
+    }
+
+    // --- RENDERIZADO REACTIVO PRINCIPAL ---
+    function renderApp() {
+      const testPaceSec = paceToSec(STATE.profile.testPace);
+      const zones = calculateZones(testPaceSec);
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      document.getElementById('header-vam-pace').textContent = STATE.profile.testPace;
+      document.getElementById('meta-athlete-name').textContent = STATE.profile.name;
+      document.getElementById('meta-athlete-goal').textContent = getEffectiveGoalTitle(STATE.profile);
+
+      const maxBox = document.getElementById('meta-max-dist-box');
+      const maxTxt = document.getElementById('meta-max-dist-text');
+      if (maxBox && maxTxt) {
+        if (STATE.profile.maxDistanceRun) {
+          maxBox.style.display = 'inline-block';
+          maxTxt.textContent = `${STATE.profile.maxDistanceRun} km`;
+        } else {
+          maxBox.style.display = 'none';
+        }
+      }
+
+      // Banner Deporte Cruzado
+      const banner = document.getElementById('cross-sport-banner');
+      if (banner) {
+        if (STATE.profile.hasOtherSports && STATE.profile.crossDays?.length > 0) {
+          const sName = (STATE.profile.otherSportType === 'Otro' && STATE.profile.otherSportCustom) ? STATE.profile.otherSportCustom : STATE.profile.otherSportType;
+          banner.style.display = 'block';
+          document.getElementById('cross-sport-banner-title').textContent = `🏋️ Plan adaptado a combinación con ${sName}:`;
+          document.getElementById('cross-sport-banner-desc').textContent = `Las tiradas largas y rodajes de running se han optimizado en volumen de impacto para proteger articulaciones y evitar sobrecargas tras tus sesiones de ${sName}.`;
+        } else {
+          banner.style.display = 'none';
+        }
+      }
+
+      // Cuenta atrás
+      if (STATE.profile.raceDate) {
+        const rDate = parseAndNormalizeRaceDate(STATE.profile.raceDate) || new Date(STATE.profile.raceDate);
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        rDate.setHours(0, 0, 0, 0);
+        const diffDays = Math.ceil((rDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+        const box = document.getElementById('meta-countdown-box');
+        const txt = document.getElementById('meta-countdown-text');
+        if (box && txt) {
+          box.style.display = 'block';
+          if (diffDays === 0) txt.textContent = "¡Hoy es tu Carrera!";
+          else if (diffDays === 1) txt.textContent = "¡Mañana es tu Carrera!";
+          else if (diffDays > 1) {
+            const w = Math.ceil(diffDays / 7);
+            txt.textContent = `Quedan ${diffDays} días (${w} sem)`;
+          } else {
+            txt.textContent = "¡Semana de Carrera!";
+          }
+        }
+      }
+
+      // Week chips
+      const chipsContainer = document.getElementById('week-chips-container');
+      chipsContainer.innerHTML = STATE.weeks.map(w => {
+        const isAct = w.weekNum === STATE.selectedWeek;
+        const isRace = w.isRaceWeek;
+        return `
+          <div class="week-chip ${isAct ? 'active' : ''} ${isRace ? 'race' : ''}" onclick="selectWeek(${w.weekNum})">
+            ${isRace ? '🏆 Carrera' : w.isPostRaceWeek ? 'Post-Carrera' : 'Semana ' + w.weekNum}
+          </div>
+        `;
+      }).join('');
+
+      const curWeek = STATE.weeks.find(w => w.weekNum === STATE.selectedWeek) || STATE.weeks[0];
+      document.getElementById('current-week-title').textContent = curWeek.title;
+      document.getElementById('current-week-focus').textContent = curWeek.focus;
+
+      // Días
+      const daysContainer = document.getElementById('days-container');
+      const filteredDays = curWeek.days.filter(d => {
+        if (STATE.filter === 'running') return ['fartlek', 'hills', 'intervals', 'tempo', 'easy_run', 'long_run', 'progressive', 'test'].includes(d.type);
+        if (STATE.filter === 'cross') return d.type === 'cross' || d.type === 'strength';
+        if (STATE.filter === 'pending') return !d.completed && d.type !== 'rest';
+        if (STATE.filter === 'completed') return d.completed;
+        return true;
+      });
+
+      daysContainer.innerHTML = filteredDays.map(d => {
+        const isRest = d.type === 'rest';
+        const isRace = d.type === 'race';
+        const isToday = d.date === todayStr;
+        const isPrePlan = d.isPrePlan || d.type === 'pre_plan' || (curWeek.weekNum === 1 && d.date < todayStr);
+        let catCls = d.type;
+
+        if (isPrePlan) {
+          return `
+            <div class="day-card pre-plan-day" style="opacity: 0.55; background: rgba(15, 23, 42, 0.4); border: 1px dashed var(--border-subtle); padding: 12px 16px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 1.1rem; opacity: 0.6;">🗓️</span>
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span class="day-name" style="font-weight: 700;">${d.dayName}</span>
+                      <span class="day-date" style="font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono);">${d.date}</span>
+                      <span class="tag-category" style="background: rgba(100, 116, 139, 0.15); color: #94a3b8; border: 1px solid rgba(100, 116, 139, 0.3); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px;">Previo al Plan</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-dim); font-style: italic;">
+                  Día anterior a la fecha de inicio del plan
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="day-card ${d.completed ? 'completed' : ''} ${isRace ? 'race-day' : ''} ${isToday ? 'today' : ''}">
+            <div class="day-card-inner">
+              <div class="day-main-info">
+                
+                ${!isRest ? `
+                  <div class="day-checkbox ${d.completed ? 'checked' : ''}" onclick="toggleDayCompleted('${d.id}')" title="Marcar completado">
+                    ✓
+                  </div>
+                ` : `
+                  <div class="day-rest-icon" title="Día de descanso">🛌</div>
+                `}
+
+                <div class="day-content">
+                  <div class="day-meta-tags">
+                    <span class="day-name">${d.dayName}</span>
+                    <span class="day-date">${d.date || ''}</span>
+                    ${isToday ? '<span class="tag-today" style="background: var(--accent); color: #042f2e; font-weight: 800; padding: 2px 8px; border-radius: 6px;">⭐ ¡HOY COMIENZAS!</span>' : ''}
+                    <span class="tag-category ${catCls}">${d.cat || 'Entreno'}</span>
+                    ${d.km ? `<span class="tag-km">~${d.km} km</span>` : ''}
+                  </div>
+
+                  <div class="workout-text">
+                    ${isRest 
+                      ? '<span style="color: var(--text-dim); font-style: italic;">Descanso programado para asimilar la carga.</span>' 
+                      : enrichWorkoutHtml(d.workout, zones)}
+                  </div>
+
+                  ${d.obs ? `
+                    <div class="guideline-notes">
+                      <strong>Pautas:</strong> <span>${d.obs}</span>
+                    </div>
+                  ` : ''}
+
+                  ${d.userNotes ? `
+                    <div class="user-feedback-box">
+                      <span><strong>Mis sensaciones:</strong> ${d.userNotes}</span>
+                      <span class="stars">${'★'.repeat(d.rating || 5)}</span>
+                    </div>
+                  ` : ''}
+                </div>
+
+              </div>
+
+              <div class="day-actions">
+                ${d.videoUrl ? `
+                  <a href="${d.videoUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 0.75rem; padding: 5px 10px;">
+                    🎥 Vídeo Fuerza
+                  </a>
+                ` : ''}
+
+                ${!isRest ? `
+                  <a href="${getGoogleCalendarUrl(d, curWeek.title, zones)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 5px 8px;" title="Añadir a Google Calendar">
+                    📅
+                  </a>
+                  <button class="btn btn-secondary" onclick="openSessionModal('${d.id}')" style="font-size: 0.75rem; padding: 5px 10px;">
+                    ${d.userNotes ? 'Editar Notas' : 'Sensaciones'}
+                  </button>
+                ` : ''}
+              </div>
+
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      renderCalendarView(zones);
+      renderStrengthGrid();
+      updateStats(zones);
+    }
+
+    function renderCalendarView(zones) {
+      const calGrid = document.getElementById('calendar-grid');
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      calGrid.innerHTML = STATE.weeks.map(w => `
+        <div style="background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px;">
+          <div style="font-weight: 800; font-size: 0.85rem; color: var(--accent); margin-bottom: 6px; display: flex; justify-content: space-between;">
+            <span>${w.isRaceWeek ? '🏆 Carrera' : w.isPostRaceWeek ? 'Post' : 'Semana ' + w.weekNum}</span>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 8px;" class="truncate">${w.focus}</div>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            ${w.days.map(d => {
+              const isToday = d.date === todayStr;
+              return `
+                <div onclick="${d.type !== 'rest' ? `openSessionModal('${d.id}')` : ''}" style="font-size: 0.725rem; padding: 4px 6px; border-radius: 4px; border: ${isToday ? '1px solid var(--accent)' : 'none'}; background: ${d.completed ? 'rgba(16, 185, 129, 0.15)' : 'var(--bg-surface)'}; display: flex; justify-content: space-between; cursor: ${d.type !== 'rest' ? 'pointer' : 'default'};">
+                  <span style="font-weight: 700; width: 28px; color: ${isToday ? 'var(--accent)' : 'var(--text-muted)'};">${d.dayName.slice(0, 3)}</span>
+                  <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 4px;">${d.workout}</span>
+                  ${d.completed ? '<span style="color: var(--accent);">✓</span>' : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderStrengthGrid() {
+      const sGrid = document.getElementById('strength-grid');
+      sGrid.innerHTML = STRENGTH_VIDEOS.map(v => `
+        <div class="resource-card">
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--accent); font-weight: 700; margin-bottom: 4px;">
+              <span>Rutina ${v.id}</span>
+              <span style="font-family: var(--font-mono); color: var(--text-dim);">${v.dur}</span>
+            </div>
+            <h4>${v.title}</h4>
+            <p>${v.focus}</p>
+          </div>
+          <a href="${v.url}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; font-size: 0.8rem;">
+            ▶ Ver Vídeo de la Rutina
+          </a>
+        </div>
+      `).join('');
+    }
+
+    function updateStats(zones) {
+      let total = 0, done = 0, km = 0, runs = 0, strength = 0;
+      STATE.weeks.forEach(w => {
+        w.days.forEach(d => {
+          if (d.type !== 'rest' && d.type !== 'pre_plan' && !d.isPrePlan) {
+            total++;
+            if (d.completed) done++;
+            if (d.km) km += d.km;
+            if (d.type === 'strength' || d.type === 'cross') strength++;
+            else runs++;
+          }
+        });
+      });
+
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      document.getElementById('stat-progress-pct').textContent = pct + '%';
+      document.getElementById('stat-progress-count').textContent = `${done} de ${total} sesiones completadas`;
+      document.getElementById('stat-total-km').textContent = `~${km} km`;
+      document.getElementById('stat-running-count').textContent = runs;
+      document.getElementById('stat-strength-count').textContent = strength;
+
+      const zCards = document.getElementById('stats-zones-cards');
+      zCards.innerHTML = Object.keys(zones).map(k => {
+        const z = zones[k];
+        return `
+          <div style="background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700;">
+              <span>${k}</span>
+              <span style="color: var(--text-dim);">${z.fc}</span>
+            </div>
+            <div style="font-size: 1.25rem; font-weight: 900; font-family: var(--font-mono); margin: 2px 0;">
+              ${z.pace} <span style="font-size: 0.75rem; font-weight: 400; color: var(--text-dim);">/km</span>
+            </div>
+            <div style="font-size: 0.7rem; color: var(--text-muted);">${z.label}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectWeek(num) {
+      STATE.selectedWeek = num;
+      renderApp();
+    }
+
+    function changeWeek(delta) {
+      const target = STATE.selectedWeek + delta;
+      if (target >= 1 && target <= STATE.weeks.length) {
+        selectWeek(target);
+      }
+    }
+
+    function setFilter(cat, btn) {
+      STATE.filter = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderApp();
+    }
+
+    function toggleDayCompleted(sessionId) {
+      STATE.weeks.forEach(w => {
+        w.days.forEach(d => {
+          if (d.id === sessionId) d.completed = !d.completed;
+        });
+      });
+      saveState();
+      renderApp();
+    }
+
+    function switchView(viewName) {
+      STATE.currentView = viewName;
+      ['list', 'calendar', 'nutrition', 'resources', 'stats'].forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        const tab = document.getElementById(`tab-${v}`);
+        if (el && tab) {
+          if (v === viewName) {
+            el.style.display = 'block';
+            tab.classList.add('active');
+          } else {
+            el.style.display = 'none';
+            tab.classList.remove('active');
+          }
+        }
+      });
+    }
+
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    // --- ONBOARDING EN 2 PASOS ---
+    function openOnboarding(isFirstTime = false) {
+      const p = STATE.profile;
+      const today = new Date();
+      const todayDayIdx = (today.getDay() === 0 ? 6 : today.getDay() - 1);
+      
+      // Si es la primera vez que se abre la app, sugerimos días que comiencen desde hoy
+      if (isFirstTime && !localStorage.getItem('eimendi_has_onboarded')) {
+        p.runningDays = [todayDayIdx, (todayDayIdx + 2) % 7, (todayDayIdx + 4) % 7].sort((a,b) => a - b);
+      }
+
+      document.getElementById('cfg-athlete-name').value = p.name;
+      document.getElementById('cfg-goal-select').value = p.goal;
+      document.getElementById('cfg-custom-goal-name').value = p.customGoalName || '';
+      document.getElementById('cfg-race-date').value = p.raceDate || '';
+
+      const maxKm = p.maxDistanceRun || (p.goal === '10k' ? 5 : p.goal === '5k' ? 3 : p.goal === 'marathon' ? 20 : p.goal === 'beginner' ? 2 : 10);
+      const distInput = document.getElementById('cfg-max-distance');
+      if (distInput) {
+        distInput.value = maxKm;
+        updateMaxDistanceUI(maxKm);
+      }
+
+      handleGoalSelectChange();
+      updateRaceCountdownFeedback();
+
+      // Días de carrera
+      document.querySelectorAll('#cfg-running-days-group .btn-day-toggle').forEach(btn => {
+        const d = parseInt(btn.getAttribute('data-day'), 10);
+        btn.classList.toggle('selected', p.runningDays.includes(d));
+      });
+
+      // Otros deportes
+      setOtherSportsActive(!!p.hasOtherSports);
+      document.getElementById('cfg-other-sport-type').value = p.otherSportType || 'Crossfit';
+      document.getElementById('cfg-other-sport-custom').value = p.otherSportCustom || '';
+      handleSportTypeChange();
+
+      document.querySelectorAll('#cfg-cross-days-group .btn-day-toggle').forEach(btn => {
+        const d = parseInt(btn.getAttribute('data-day'), 10);
+        btn.classList.toggle('selected-cf', p.crossDays && p.crossDays.includes(d));
+      });
+
+      // Fuerza
+      setGymActive(!!p.hasGym);
+      document.querySelectorAll('#cfg-gym-days-group .btn-day-toggle').forEach(btn => {
+        const d = parseInt(btn.getAttribute('data-day'), 10);
+        btn.classList.toggle('selected-gym', p.gymDays && p.gymDays.includes(d));
+      });
+
+      // Cuestas
+      setHillsActive(p.includeHills !== false);
+
+      // Fecha mínima: hoy
+      const todayIso = new Date().toISOString().split('T')[0];
+      const dateEl = document.getElementById('cfg-race-date');
+      if (dateEl) dateEl.min = todayIso;
+
+      // Valores test en paso 2
+      document.getElementById('ob-test-pace').value = p.testPace || '04:10';
+      document.getElementById('ob-test-meters').value = p.testMeters || 1200;
+      updateObPreviewZones();
+
+      goToOnboardingStep(1);
+      openModal('modal-onboarding');
+    }
+
+    function selectMaxDistanceChip(km) {
+      const input = document.getElementById('cfg-max-distance');
+      if (input) {
+        input.value = km;
+        input.setAttribute('data-user-modified', 'true');
+      }
+      updateMaxDistanceUI(km);
+    }
+
+    function handleMaxDistanceInput() {
+      const input = document.getElementById('cfg-max-distance');
+      if (input) {
+        input.setAttribute('data-user-modified', 'true');
+        const km = parseFloat(input.value) || 0;
+        updateMaxDistanceUI(km);
+      }
+    }
+
+    function updateMaxDistanceUI(km) {
+      [3, 5, 8, 10, 15, 21].forEach(val => {
+        const chip = document.getElementById(`chip-dist-${val}`);
+        if (chip) chip.classList.toggle('selected', Math.abs(val - km) < 0.1);
+      });
+
+      const fb = document.getElementById('cfg-max-distance-feedback');
+      if (!fb) return;
+      const g = document.getElementById('cfg-goal-select')?.value || 'half_marathon';
+      if (!km || km <= 0) {
+        fb.textContent = '';
+        return;
+      }
+
+      if (g === '10k') {
+        if (km < 10) {
+          fb.innerHTML = `🛡️ <strong>Plan adaptado:</strong> Tus rodajes iniciarán cerca de <strong>${km} km</strong> y subirán progresivamente (+1 km) hasta los 10K para que nunca hagas distancias bruscas ni sobrecargas.`;
+        } else {
+          fb.innerHTML = `⚡ <strong>Base consolidada:</strong> Ya dominas los 10 km; el plan se enfocará en optimizar tu ritmo de competición Z4.`;
+        }
+      } else if (g === '5k') {
+        fb.innerHTML = `🛡️ <strong>Plan adaptado:</strong> Tiradas progresivas desde <strong>${km} km</strong> para afianzar el fondo aeróbico sin sobrecargar articulaciones.`;
+      } else if (g === 'half_marathon' || g === 'behobia') {
+        if (km < 15) {
+          fb.innerHTML = `🛡️ <strong>Plan adaptado:</strong> La primera tirada larga se ajusta a <strong>${km} km</strong>, aumentando con ciclos de descarga para alcanzar la media maratón de forma segura.`;
+        } else {
+          fb.innerHTML = `⚡ <strong>Gran base aeróbica:</strong> Tus tiradas largas afinarán la resistencia específica y el ritmo objetivo Z2-Z3.`;
+        }
+      } else if (g === 'marathon') {
+        fb.innerHTML = `🛡️ <strong>Plan maratón:</strong> Progresión milimétrica desde tus <strong>${km} km</strong> máximos con especial énfasis en tiradas largas asimiladas.`;
+      } else if (g === 'beginner') {
+        fb.innerHTML = `🌱 <strong>Iniciación segura:</strong> Método CACOs (caminar-correr) desde tus <strong>${km} km</strong> para evitar cualquier molestia articular.`;
+      } else {
+        fb.innerHTML = `🛡️ <strong>Plan personalizado:</strong> Progresión calibrada a partir de tu base de <strong>${km} km</strong>.`;
+      }
+    }
+
+    function goToOnboardingStep(stepNum) {
+      const s1 = document.getElementById('onboarding-step-1');
+      const s2 = document.getElementById('onboarding-step-2');
+      const p1 = document.getElementById('pill-step-1');
+      const p2 = document.getElementById('pill-step-2');
+
+      if (stepNum === 1) {
+        s1.style.display = 'block';
+        s2.style.display = 'none';
+        p1.className = 'step-pill active';
+        p2.className = 'step-pill';
+      } else {
+        s1.style.display = 'none';
+        s2.style.display = 'block';
+        p1.className = 'step-pill completed';
+        p2.className = 'step-pill active';
+        updateObPreviewZones();
+      }
+    }
+
+    function saveStep1AndGoToTest() {
+      const name = document.getElementById('cfg-athlete-name').value.trim() || 'Eider';
+      const goal = document.getElementById('cfg-goal-select').value;
+      const customGoal = document.getElementById('cfg-custom-goal-name').value.trim();
+      let raceDate = document.getElementById('cfg-race-date').value;
+
+      const normDate = parseAndNormalizeRaceDate(raceDate);
+      if (normDate) {
+        const y = normDate.getFullYear();
+        const m = String(normDate.getMonth() + 1).padStart(2, '0');
+        const d = String(normDate.getDate()).padStart(2, '0');
+        raceDate = `${y}-${m}-${d}`;
+        document.getElementById('cfg-race-date').value = raceDate;
+      }
+
+      const runDays = [];
+      document.querySelectorAll('#cfg-running-days-group .btn-day-toggle.selected').forEach(btn => {
+        runDays.push(parseInt(btn.getAttribute('data-day'), 10));
+      });
+
+      const crossDays = [];
+      document.querySelectorAll('#cfg-cross-days-group .btn-day-toggle.selected-cf').forEach(btn => {
+        crossDays.push(parseInt(btn.getAttribute('data-day'), 10));
+      });
+
+      const gymDays = [];
+      document.querySelectorAll('#cfg-gym-days-group .btn-day-toggle.selected-gym').forEach(btn => {
+        gymDays.push(parseInt(btn.getAttribute('data-day'), 10));
+      });
+
+      const includeHills = document.getElementById('btn-hills-yes')?.classList.contains('selected') ?? true;
+      const maxDistanceRun = parseFloat(document.getElementById('cfg-max-distance')?.value) || 5;
+
+      let goalLabel = "Media Maratón (21K)";
+      if (goal === 'behobia') goalLabel = "20K Behobia - San Sebastián";
+      else if (goal === 'beginner') goalLabel = "Empezar a correr";
+      else if (goal === '5k') goalLabel = "Carrera de 5K";
+      else if (goal === '10k') goalLabel = "Carrera de 10K";
+      else if (goal === 'marathon') goalLabel = "Maratón (42K)";
+      else if (goal === 'custom') goalLabel = customGoal || "Reto Personalizado";
+
+      STATE.profile.name = name;
+      STATE.profile.goal = goal;
+      STATE.profile.goalLabel = goalLabel;
+      STATE.profile.customGoalName = (goal === 'custom') ? customGoal : '';
+      STATE.profile.raceDate = raceDate;
+      STATE.profile.runningDays = runDays.length ? runDays : [0, 3, 5];
+      STATE.profile.includeHills = includeHills;
+      STATE.profile.maxDistanceRun = maxDistanceRun;
+      STATE.profile.otherSportType = document.getElementById('cfg-other-sport-type').value;
+      STATE.profile.otherSportCustom = document.getElementById('cfg-other-sport-custom').value.trim();
+      STATE.profile.crossDays = crossDays;
+      STATE.profile.gymDays = gymDays;
+
+      localStorage.setItem('eimendi_profile', JSON.stringify(STATE.profile));
+      goToOnboardingStep(2);
+    }
+
+    function handleGoalSelectChange() {
+      const g = document.getElementById('cfg-goal-select').value;
+      document.getElementById('cfg-custom-goal-box').style.display = (g === 'custom') ? 'block' : 'none';
+
+      const dateInput = document.getElementById('cfg-race-date');
+      const curVal = dateInput.value;
+      if (g === 'half_marathon' && curVal && curVal.includes('11-08')) {
+        dateInput.value = '2027-04-18';
+      } else if (g === 'behobia' && (!curVal || curVal.includes('04-18'))) {
+        dateInput.value = '2026-11-08';
+      }
+
+      const distInput = document.getElementById('cfg-max-distance');
+      if (distInput && !distInput.getAttribute('data-user-modified')) {
+        let suggested = 10;
+        if (g === '10k') suggested = 5;
+        else if (g === '5k') suggested = 3;
+        else if (g === 'marathon') suggested = 20;
+        else if (g === 'beginner') suggested = 2;
+        distInput.value = suggested;
+        updateMaxDistanceUI(suggested);
+      }
+
+      updateRaceCountdownFeedback();
+    }
+
+    function updateRaceCountdownFeedback() {
+      const dateInput = document.getElementById('cfg-race-date');
+      const feedbackEl = document.getElementById('onboarding-countdown-feedback');
+      if (!dateInput || !dateInput.value) {
+        if (feedbackEl) feedbackEl.textContent = "";
+        return;
+      }
+      const normDate = parseAndNormalizeRaceDate(dateInput.value);
+      if (normDate) {
+        const y = normDate.getFullYear();
+        const m = String(normDate.getMonth() + 1).padStart(2, '0');
+        const d = String(normDate.getDate()).padStart(2, '0');
+        const normStr = `${y}-${m}-${d}`;
+        if (normStr !== dateInput.value) {
+          dateInput.value = normStr;
+        }
+      }
+
+      const weeksRem = getWeeksRemaining(dateInput.value);
+      const goal = document.getElementById('cfg-goal-select').value;
+      let gName = "tu carrera";
+      if (goal === 'half_marathon') gName = "tu Media Maratón (21K)";
+      else if (goal === 'behobia') gName = "la 20K Behobia";
+      else if (goal === '10k') gName = "tu Carrera de 10K";
+      else if (goal === '5k') gName = "tu Carrera de 5K";
+      else if (goal === 'marathon') gName = "tu Maratón (42K)";
+      else if (goal === 'beginner') gName = "tu plan de iniciación";
+      else if (goal === 'custom') {
+        const cVal = document.getElementById('cfg-custom-goal-name').value.trim();
+        gName = cVal || "tu reto personalizado";
+      }
+
+      if (weeksRem === 1) {
+        feedbackEl.innerHTML = `⚡ ¡Tu competición es esta misma semana! Se planifica la <strong>Semana de Competición directa</strong> (tapering, activación y día de carrera).`;
+      } else {
+        const dateFormatted = normDate ? `${String(normDate.getDate()).padStart(2, '0')}/${String(normDate.getMonth()+1).padStart(2, '0')}/${normDate.getFullYear()}` : '';
+        feedbackEl.innerHTML = `📅 <strong>Quedan ${weeksRem} semanas</strong> hasta ${gName} (${dateFormatted}). El plan se sincroniza exactamente con las semanas que restan hasta esa fecha.`;
+      }
+    }
+
+    function setOtherSportsActive(active) {
+      STATE.profile.hasOtherSports = active;
+      document.getElementById('btn-cross-yes').classList.toggle('selected', active);
+      document.getElementById('btn-cross-no').classList.toggle('selected', !active);
+      document.getElementById('cfg-other-sports-details').style.display = active ? 'block' : 'none';
+    }
+
+    function handleSportTypeChange() {
+      const t = document.getElementById('cfg-other-sport-type').value;
+      document.getElementById('cfg-other-sport-custom').style.display = (t === 'Otro') ? 'block' : 'none';
+    }
+
+    function setGymActive(active) {
+      STATE.profile.hasGym = active;
+      document.getElementById('btn-gym-yes').classList.toggle('selected', active);
+      document.getElementById('btn-gym-no').classList.toggle('selected', !active);
+      document.getElementById('cfg-gym-days-details').style.display = active ? 'block' : 'none';
+    }
+
+    function setHillsActive(active) {
+      STATE.profile.includeHills = active;
+      const bYes = document.getElementById('btn-hills-yes');
+      const bNo = document.getElementById('btn-hills-no');
+      if (bYes && bNo) {
+        bYes.classList.toggle('selected', active);
+        bNo.classList.toggle('selected', !active);
+      }
+    }
+
+    function toggleRunDayBtn(btn) { btn.classList.toggle('selected'); }
+    function toggleCrossDayBtn(btn) { btn.classList.toggle('selected-cf'); }
+    function toggleGymDayBtn(btn) { btn.classList.toggle('selected-gym'); }
+
+    // Paso 2: Cálculo en vivo del Test VAM
+    function handleObTestPaceInput() {
+      const paceVal = document.getElementById('ob-test-pace').value.trim();
+      const sec = paceToSec(paceVal);
+      if (sec > 0) {
+        document.getElementById('ob-test-meters').value = Math.round((300 / sec) * 1000);
+        updateObPreviewZones();
+      }
+    }
+
+    function handleObTestMetersInput() {
+      const mVal = parseInt(document.getElementById('ob-test-meters').value, 10);
+      if (mVal > 0) {
+        const sec = Math.round(300000 / mVal);
+        document.getElementById('ob-test-pace').value = secToPace(sec);
+        updateObPreviewZones();
+      }
+    }
+
+    function applyPresetTest(paceStr, metersNum) {
+      document.getElementById('ob-test-pace').value = paceStr;
+      document.getElementById('ob-test-meters').value = metersNum;
+      updateObPreviewZones();
+    }
+
+    function updateObPreviewZones() {
+      const paceVal = document.getElementById('ob-test-pace').value.trim() || '04:10';
+      const sec = paceToSec(paceVal);
+      const zones = calculateZones(sec);
+      const series = calculateSeries(sec);
+
+      const container = document.getElementById('ob-preview-zones');
+      if (container) {
+        container.innerHTML = ['Z5', 'Z4', 'Z3', 'Z2', 'Z1'].map(k => {
+          const z = zones[k];
+          return `
+            <div style="background: var(--bg-surface); padding: 8px 4px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <div style="font-size: 0.7rem; font-weight: 800;" class="zone-badge ${z.cls}">${k}</div>
+              <div style="font-family: var(--font-mono); font-weight: 800; font-size: 0.85rem; margin-top: 4px;">${z.pace}</div>
+              <div style="font-size: 0.65rem; color: var(--text-dim);">${z.fc}</div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const seriesContainer = document.getElementById('ob-preview-series');
+      if (seriesContainer) {
+        seriesContainer.innerHTML = series.map(s => `
+          <div style="background: var(--bg-surface); padding: 6px 4px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <strong style="color: var(--accent); font-size: 0.75rem;">${s.dist}</strong>
+            <div style="font-family: var(--font-mono); font-weight: 800; font-size: 0.8rem;">${s.pace}/km</div>
+            <div style="font-size: 0.65rem; color: var(--text-dim); font-family: var(--font-mono);">${s.time}</div>
+          </div>
+        `).join('');
+      }
+    }
+
+    function saveOnboardingAndGeneratePlan() {
+      const name = document.getElementById('cfg-athlete-name').value.trim() || 'Eider';
+      const goal = document.getElementById('cfg-goal-select').value;
+      const customGoal = document.getElementById('cfg-custom-goal-name').value.trim();
+      let raceDate = document.getElementById('cfg-race-date').value;
+
+      const normDate = parseAndNormalizeRaceDate(raceDate);
+      if (normDate) {
+        const y = normDate.getFullYear();
+        const m = String(normDate.getMonth() + 1).padStart(2, '0');
+        const d = String(normDate.getDate()).padStart(2, '0');
+        raceDate = `${y}-${m}-${d}`;
+      }
+
+      const testPace = document.getElementById('ob-test-pace').value.trim() || '04:10';
+      const testMeters = parseInt(document.getElementById('ob-test-meters').value, 10) || 1200;
+
+      const runDays = [];
+      document.querySelectorAll('#cfg-running-days-group .btn-day-toggle.selected').forEach(btn => {
+        runDays.push(parseInt(btn.getAttribute('data-day'), 10));
+      });
+
+      const crossDays = [];
+      document.querySelectorAll('#cfg-cross-days-group .btn-day-toggle.selected-cf').forEach(btn => {
+        crossDays.push(parseInt(btn.getAttribute('data-day'), 10));
+      });
+
+      const gymDays = [];
+      document.querySelectorAll('#cfg-gym-days-group .btn-day-toggle.selected-gym').forEach(btn => {
+        gymDays.push(parseInt(btn.getAttribute('data-day'), 10));
+      });
+
+      let goalLabel = "Media Maratón (21K)";
+      if (goal === 'behobia') goalLabel = "20K Behobia - San Sebastián";
+      else if (goal === 'beginner') goalLabel = "Empezar a correr";
+      else if (goal === '5k') goalLabel = "Carrera de 5K";
+      else if (goal === '10k') goalLabel = "Carrera de 10K";
+      else if (goal === 'marathon') goalLabel = "Maratón (42K)";
+      else if (goal === 'custom') goalLabel = customGoal || "Reto Personalizado";
+
+      const includeHills = document.getElementById('btn-hills-yes')
+        ? document.getElementById('btn-hills-yes').classList.contains('selected')
+        : (STATE.profile.includeHills !== false);
+
+      const maxDistanceRun = parseFloat(document.getElementById('cfg-max-distance')?.value) || (STATE.profile.maxDistanceRun || 5);
+
+      STATE.profile.name = name;
+      STATE.profile.goal = goal;
+      STATE.profile.goalLabel = goalLabel;
+      STATE.profile.customGoalName = (goal === 'custom') ? customGoal : '';
+      STATE.profile.raceDate = raceDate;
+      STATE.profile.testPace = testPace;
+      STATE.profile.testMeters = testMeters;
+      STATE.profile.runningDays = runDays.length ? runDays : [0, 3, 5];
+      STATE.profile.includeHills = includeHills;
+      STATE.profile.maxDistanceRun = maxDistanceRun;
+      STATE.profile.otherSportType = document.getElementById('cfg-other-sport-type').value;
+      STATE.profile.otherSportCustom = document.getElementById('cfg-other-sport-custom').value.trim();
+      STATE.profile.crossDays = crossDays.length ? crossDays : [1, 4];
+      STATE.profile.gymDays = gymDays.length ? gymDays : [1];
+
+      // Regenerar plan completo adaptativo con las semanas exactas calculadas
+      STATE.weeks = generateAdaptivePlan();
+      STATE.selectedWeek = 1;
+
+      sessionStorage.setItem('eimendi_plan_ready', 'true');
+      localStorage.setItem('eimendi_has_onboarded', 'true');
+      saveState();
+      closeModal('modal-onboarding');
+      renderApp();
+    }
+
+    // Modal Zonas VAM Rápido
+    function openZonesModal() {
+      const testPaceSec = paceToSec(STATE.profile.testPace);
+      const zones = calculateZones(testPaceSec);
+      const series = calculateSeries(testPaceSec);
+
+      document.getElementById('input-test-pace').value = STATE.profile.testPace;
+      document.getElementById('input-test-meters').value = STATE.profile.testMeters || 1200;
+
+      const zTable = document.getElementById('modal-zones-table');
+      zTable.innerHTML = ['Z5', 'Z4', 'Z3', 'Z2', 'Z1'].map(k => {
+        const z = zones[k];
+        return `
+          <tr>
+            <td><span class="zone-badge ${z.cls}">${k}</span></td>
+            <td><strong>${z.label}</strong><br><span style="font-size: 0.7rem; color: var(--text-dim);">${z.desc}</span></td>
+            <td style="font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem;">${z.pace}/km<br><span style="font-size: 0.7rem; font-weight: normal; color: var(--text-dim);">${z.fc}</span></td>
+          </tr>
+        `;
+      }).join('');
+
+      const sTable = document.getElementById('modal-series-table');
+      sTable.innerHTML = series.map(s => `
+        <div style="background: var(--bg-base); padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--accent); font-size: 0.8rem;">${s.dist}</strong>
+          <div style="font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem;">${s.pace}/km</div>
+          <div style="font-size: 0.7rem; color: var(--text-dim); font-family: var(--font-mono);">Obj: ${s.time}</div>
+        </div>
+      `).join('');
+
+      openModal('modal-zones');
+    }
+
+    function saveZonesFromModal() {
+      const paceInput = document.getElementById('input-test-pace').value.trim();
+      if (paceInput) {
+        STATE.profile.testPace = paceInput;
+        const sec = paceToSec(paceInput);
+        STATE.profile.testMeters = Math.round((300 / sec) * 1000);
+        // Recalcular el plan con los nuevos ritmos
+        STATE.weeks = generateAdaptivePlan();
+      }
+      saveState();
+      closeModal('modal-zones');
+      renderApp();
+    }
+
+    function openSessionModal(sessionId) {
+      STATE.activeSessionId = sessionId;
+      let session = null;
+      STATE.weeks.forEach(w => {
+        w.days.forEach(d => {
+          if (d.id === sessionId) session = d;
+        });
+      });
+
+      if (!session) return;
+
+      const testPaceSec = paceToSec(STATE.profile.testPace);
+      const zones = calculateZones(testPaceSec);
+
+      document.getElementById('session-modal-cat').textContent = session.cat || 'ENTRENO';
+      document.getElementById('session-modal-title').textContent = `${session.dayName} · ${session.date || ''}`;
+      document.getElementById('session-modal-workout').innerHTML = enrichWorkoutHtml(session.workout, zones);
+      const pautasEl = document.getElementById('session-modal-pautas');
+      if (pautasEl) {
+        pautasEl.innerHTML = session.obs ? `<strong>Pautas del Entrenamiento:</strong> ${session.obs}` : '';
+      }
+      document.getElementById('session-modal-notes').value = session.userNotes || '';
+      
+      setRating(session.rating || 5);
+
+      const toggleBtn = document.getElementById('session-modal-toggle-btn');
+      toggleBtn.textContent = session.completed ? 'Marcar Pendiente' : 'Marcar Completado';
+
+      openModal('modal-session');
+    }
+
+    function setRating(r) {
+      STATE.currentRating = r;
+      const stars = document.querySelectorAll('#session-modal-stars span');
+      stars.forEach((s, idx) => {
+        s.style.color = (idx < r) ? '#fbbf24' : 'var(--border-strong)';
+      });
+    }
+
+    function toggleCurrentSessionComplete() {
+      if (!STATE.activeSessionId) return;
+      toggleDayCompleted(STATE.activeSessionId);
+      closeModal('modal-session');
+    }
+
+    function saveSessionFeedback() {
+      const notes = document.getElementById('session-modal-notes').value.trim();
+      STATE.weeks.forEach(w => {
+        w.days.forEach(d => {
+          if (d.id === STATE.activeSessionId) {
+            d.userNotes = notes;
+            d.rating = STATE.currentRating;
+          }
+        });
+      });
+      saveState();
+      closeModal('modal-session');
+      renderApp();
+    }
+
+    function getGoogleCalendarUrl(day, weekTitle, zones) {
+      let enriched = day.workout;
+      Object.keys(zones).forEach(k => {
+        enriched = enriched.replace(new RegExp(`\\b${k}\\b`, 'g'), `${k} [${zones[k].pace}/km]`);
+      });
+      const title = encodeURIComponent(`[Eimendi] ${day.cat}: ${day.workout.slice(0, 40)}`);
+      let details = `🏃 EIMENDI RUNNING (Eider Mendiburu)\nSemana: ${weekTitle}\nEntreno: ${enriched}\nObservaciones: ${day.obs || ''}`;
+      if (day.videoUrl) details += `\nVídeo Fuerza: ${day.videoUrl}`;
+      const cleanDate = (day.date || '').replace(/-/g, '');
+      const dates = `${cleanDate}T080000Z/${cleanDate}T091500Z`;
+      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${encodeURIComponent(details)}&dates=${dates}`;
+    }
+
+    function exportPlanICS() {
+      let events = [];
+      const now = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+      const testPaceSec = paceToSec(STATE.profile.testPace);
+      const zones = calculateZones(testPaceSec);
+
+      const todayStr = new Date().toISOString().split('T')[0];
+      STATE.weeks.forEach(w => {
+        w.days.forEach(d => {
+          if (d.type === 'rest' || d.type === 'pre_plan' || d.isPrePlan || d.date < todayStr) return;
+          const uid = `eimendi-${d.id}@eimendirunning.com`;
+          const cleanDate = (d.date || new Date().toISOString().split('T')[0]).replace(/-/g, '');
+          const dtStart = `${cleanDate}T080000`;
+          const dtEnd = `${cleanDate}T091500`;
+
+          let enriched = d.workout;
+          Object.keys(zones).forEach(k => {
+            enriched = enriched.replace(new RegExp(`\\b${k}\\b`, 'g'), `${k} [${zones[k].pace}/km]`);
+          });
+
+          let desc = `🏃 EIMENDI RUNNING\\nSemana: ${w.title}\\nDía: ${d.dayName}\\nTipo: ${d.cat}\\n\\n📋 ENTRENO:\\n${enriched}\\n\\n💡 OBSERVACIONES:\\n${d.obs || 'Sin notas'}\\n\\nEider Mendiburu · Planes de Entrenamiento`;
+          if (d.videoUrl) desc += `\\n\\n🎥 VÍDEO FUERZA: ${d.videoUrl}`;
+
+          events.push([
+            'BEGIN:VEVENT',
+            `UID:${uid}`,
+            `DTSTAMP:${now}`,
+            `DTSTART:${dtStart}`,
+            `DTEND:${dtEnd}`,
+            `SUMMARY:[Eimendi] ${d.cat}: ${d.workout.slice(0, 45)}`,
+            `DESCRIPTION:${desc}`,
+            `STATUS:CONFIRMED`,
+            'END:VEVENT'
+          ].join('\r\n'));
+        });
+      });
+
+      const icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Eimendi Running//Plan v1.0//ES',
+        'CALSCALE:GREGORIAN',
+        'X-WR-CALNAME:Eimendi Running - Plan de Entrenamiento',
+        ...events,
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Eimendi_Running_Calendario.ics`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function exportWeekPDF() {
+      window.print();
+    }
+
+    function toggleDarkMode() {
+      STATE.darkMode = !STATE.darkMode;
+      document.documentElement.classList.toggle('dark', STATE.darkMode);
+      document.documentElement.classList.toggle('light', !STATE.darkMode);
+      document.getElementById('theme-icon').textContent = STATE.darkMode ? '🌙' : '☀️';
+    }
+
+    // --- ARRANQUE NATIVO ---
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSavedState();
+      renderApp();
+
+      // Abrir en primer lugar el asistente inicial (nombre, objetivo, disponibilidad y test)
+      // Se abre siempre al inicio de sesión hasta que el usuario pulse "Guardar y Generar mi Plan"
+      const sessionPlanReady = sessionStorage.getItem('eimendi_plan_ready');
+      if (!sessionPlanReady) {
+        openOnboarding(true);
+      }
+    });
+
+    // --- GESTIÓN DE INSTALACIÓN PWA (MÓVIL & ESCRITORIO) ---
+    let deferredInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      const promptBox = document.getElementById('pwa-android-prompt-box');
+      if (promptBox) promptBox.style.display = 'block';
+      const btn = document.getElementById('btn-header-install');
+      if (btn) btn.classList.add('pulse-glow');
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+    });
+
+    function openInstallModal() {
+      const ua = navigator.userAgent || '';
+      const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+      if (isIOS) {
+        switchPwaTab('ios');
+      } else {
+        switchPwaTab('android');
+      }
+      openModal('modal-install-app');
+    }
+
+    function switchPwaTab(tab) {
+      const iosBtn = document.getElementById('pwa-tab-ios');
+      const androidBtn = document.getElementById('pwa-tab-android');
+      const iosContent = document.getElementById('pwa-content-ios');
+      const androidContent = document.getElementById('pwa-content-android');
+      if (tab === 'ios') {
+        iosBtn.style.background = 'var(--accent)';
+        iosBtn.style.color = '#042f2e';
+        androidBtn.style.background = 'transparent';
+        androidBtn.style.color = 'var(--text-main)';
+        iosContent.style.display = 'block';
+        androidContent.style.display = 'none';
+      } else {
+        androidBtn.style.background = 'var(--accent)';
+        androidBtn.style.color = '#042f2e';
+        iosBtn.style.background = 'transparent';
+        iosBtn.style.color = 'var(--text-main)';
+        iosContent.style.display = 'none';
+        androidContent.style.display = 'block';
+      }
+    }
+
+    function triggerPwaPrompt() {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            closeModal('modal-install-app');
+          }
+          deferredInstallPrompt = null;
+        });
+      } else {
+        alert("En Google Chrome, pulsa en el menú superior de 3 puntos (⋮) y selecciona 'Instalar aplicación' o 'Añadir a pantalla de inicio'.");
+      }
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
