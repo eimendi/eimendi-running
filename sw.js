@@ -2,7 +2,7 @@
  * Eimendi Running - Service Worker para Soporte Offline (PWA)
  */
 
-const CACHE_NAME = 'eimendi-running-v1';
+const CACHE_NAME = 'eimendi-running-v2';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -35,18 +35,33 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Para páginas de navegación (index.html): Red primero, con respaldo en caché para modo offline
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).then((networkResponse) => {
+        return caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+      }).catch(() => {
+        return caches.match('./index.html');
+      })
+    );
+    return;
+  }
+
+  // Para otros recursos: buscar en caché y si no está, ir a la red
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
         return cachedResponse;
       }
-      return fetch(event.request).catch(() => {
-        // En caso de fallo de red en navegación, devolver index.html de caché
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
-      });
+      return fetch(event.request).then((networkResponse) => {
+        return caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+      }).catch(() => {});
     })
   );
 });
-

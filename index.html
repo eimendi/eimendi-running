@@ -2397,6 +2397,13 @@
         localStorage.setItem('eimendi_plan_version', 'v4_variety');
         saveState();
       }
+
+      // Auto-seleccionar la semana que corresponde a hoy si está en el plan
+      const todayStr = new Date().toISOString().split('T')[0];
+      const curWeek = STATE.weeks.find(w => w.days && w.days.some(d => d.date === todayStr));
+      if (curWeek) {
+        STATE.selectedWeek = curWeek.weekNum;
+      }
     }
 
     function saveState() {
@@ -3341,10 +3348,11 @@
       loadSavedState();
       renderApp();
 
-      // Abrir en primer lugar el asistente inicial (nombre, objetivo, disponibilidad y test)
-      // Se abre siempre al inicio de sesión hasta que el usuario pulse "Guardar y Generar mi Plan"
-      const sessionPlanReady = sessionStorage.getItem('eimendi_plan_ready');
-      if (!sessionPlanReady) {
+      // Solo se abre el asistente inicial si es la primera vez que entra (no ha configurado plan)
+      // Una vez establecido, el usuario entra DIRECTO a su semana de entrenamiento sin pantallas intermedias.
+      // Puede volver a reconfigurar cuando quiera pulsando "⚙️ Mi Objetivo".
+      const hasOnboarded = localStorage.getItem('eimendi_has_onboarded');
+      if (!hasOnboarded) {
         openOnboarding(true);
       }
     });
